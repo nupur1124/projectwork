@@ -50,56 +50,42 @@
 <div ng-controller="CompanyCtrl">
 
  <div class="form-search" role="search">
+ <form id="form_search" novalidate>
+ <table width="75%">
  
- <table style="width:100%" border=0>
-  
   <tr>
    
-    <td><label> From Date:</label>
-    <input type="text" datepicker1="" ng-model="filterFromDate"/>
-    </td>
-    
- 
-    <td> <label>   To Date:</label>
-  <input type="text" datepicker1=""  ng-model="filterTodate"/>
-  </td>
-   
-  </tr>
+    <td><label>Trade Date:</label> </td>
+    <td><input type="text" datepicker1="" ng-model="filterFromDate"/></td>
+    <td> <label>To:</label> </td>
+    <td><input type="text" datepicker1=""  ng-model="filterTodate"/></td>
+ </tr>
   
   <tr>
-    <td><label>   Subscriber:</label>
-  <select ng-model="filterSubscriber" ng-options="x for x in Subscriber">
-  </select>
-  </td>
-    <td>
-   <label>  Flag:</label>
-    <input type="checkbox" ng-model="Var1">
-   <h4 ng-show="Var1">True</h4>
- </input>
-    </td>
+    <td><label>Subscriber:</label></td>
+    <td><select ng-model="filterSubscriber" ng-options="x for x in Subscriber" /></td>
+  	<td><label>RepoClear:</label></td>
+  	<td><input type="checkbox"  ng-true-value="'YES'"   ng-false-value="'NO'" ng-model="filterRepo" /></td>  
   </tr>
-  
-  <tr>
-  <td > <button type="submit" ng-click="activateFilter()">Search</button>
- <button ng-click="reset()">CANCEL</button>
- <a href="https://google.com"> Advanced Search>></a>
-  </td>
+  <tr> 
+  	<td><label>Show Errors:</label></td>
+  	<td><input type="checkbox"  ng-true-value="'ERR'" ng-model="filterError"/></td>
+  	<td colspan=2>&nbsp;</td>
   </tr>
 </table>
+<div class="button">
+  <button class="btn btn-primary" type="submit" ng-click="activateFilter()">Search</button> &nbsp;
+  <button  class="btn btn-primary" type="reset" >CANCEL</button>
+</div>
+</form>
  <br>
  <br>
-
-
-				<div class="row">
+	<div class="row">
 					
-						<div class="col-xs-6 col-md-4">
-							
-						<div  class="grid"  ui-grid="gridOptions" ui-grid-pagination class="myGrid" 
+			<div class="col-xs-6 col-md-4">
+				<div  class="grid"  ui-grid="gridOptions" ui-grid-pagination class="myGrid" 
 						ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit> </div> 
-						</div>
-						
-						
-												
+				</div>
 						
 <script type="text/ng-template" id="ngTemplate/infoPopup.html">
 	<div class="modal-header">

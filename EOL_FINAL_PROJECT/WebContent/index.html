@@ -31,15 +31,12 @@
 <link rel="stylesheet" type="text/css" href="./js/ng-grid.min.css" />
       <script src="./js/ng-grid-2.0.11.min.js"></script> 
   
-     
         <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
     <script src="http://ui-grid.info/release/ui-grid-unstable.js"></script>
     <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid-unstable.css" type="text/css">
    
-   
-    
      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.js"></script>
 
@@ -49,37 +46,59 @@
    <body>
   
       <div class="container">
-      <h1 align="center"><b>EOL PILOT</b></h1>
+      <h1 align="center"><b>TRAX Interface</b></h1>
          
          <section ng-app="app" ng-controller="TabController as tab">
              
-             <ul class="nav nav-pills" id="menu">
-
-                 <li class="link" ng-class="{active:tab.isSet(0)}"><a href ng-click="#">TRADES</a>  
-	                 <ul class="submenu">
-					        <li class="sublink"  ng-class="{active:tab.isSet(1)}">
-					           <a href ng-click="tab.setTab(1)">Monitors</a>
+             <nav id="primary_nav_wrap" >
+<ul>
+                 <li  class="current-menu-item" ng-class="{active:tab.isSet(0)}"><a href ng-click="#">Trades</a>  
+	                 <ul >
+					        <li   ng-class="{active:tab.isSet(1)}">
+					           <a href ng-click="tab.setTab(1)">Transaction Monitor...</a>
 					        </li>
-					         <li class="sublink" ng-class="{active:tab.isSet(0)}">
+					       <!--  <li class="sublink" ng-class="{active:tab.isSet(0)}">
 					            <a href ng-click="tab.setTab(0)">Details</a>
-					        </li>  
+					        </li>   --> 
 	             	 </ul>
      			 </li>
      			 
-               <li  class="link"  ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)">Reports</a></li>
+               <li  ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)">Maintenance</a>
+               <ul >
+					        <li  ng-class="{active:tab.isSet(0)}">
+					           <a href ng-click="tab.setTab(0)">FI Trade Control</a>
+					           
+					            <ul >
+					        <li class="dir"  ng-class="{active:tab.isSet(0)}">
+					           <a href ng-click="tab.setTab(0)">Suppression to Non Matchable</a>
+					        </li>
+					        <li  class="dir"  ng-class="{active:tab.isSet(0)}">
+					            <a href ng-click="tab.setTab(0)">Force to Matchable</a>
+					        </li>   
+	             	 </ul>
+					        </li>
+					         <li  ng-class="{active:tab.isSet(0)}">
+					            <a href ng-click="tab.setTab(0)">Settlement Types </a>
+					        </li>   
+					         <li  ng-class="{active:tab.isSet(0)}">
+					            <a href ng-click="tab.setTab(0)">Repo Types</a>
+					        </li> 
+	             	 </ul>
+               </li>
              </ul>
-
+</nav>
       <hr>
+      <br>
       <div ng-show="tab.isSet(0)">
        		<h4></h4>
       </div>
       
-      <div ng-show="tab.isSet(1)">
+      <div ng-show="tab.isSet(1)" id="grid">
      	    <div ng-include="'monitors.html'"></div>
       </div>
       
       <div ng-show="tab.isSet(2)">
-         	<h4>No description found</h4>
+         	<h4></h4>
       </div>
       
          </section>

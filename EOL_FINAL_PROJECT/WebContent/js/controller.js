@@ -1,6 +1,6 @@
-var myApp=angular.module('app',['ngTouch','ui.grid.pagination','ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize']);
+var myApp=angular.module('app',['ui.bootstrap','ngTouch','ui.grid.pagination','ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize']);
   
-  
+
 //for controlling tabs
 myApp.controller("TabController",function(){
 	    this.tab=0;
@@ -33,7 +33,7 @@ myApp.directive('datepicker1', function() {
   };
 });
 
-
+//for submenus
 myApp.directive('submenu', function() {
   return {
     restrict: 'AEC', /*attaches directive to class called submenu*/
@@ -55,18 +55,19 @@ myApp.directive('submenu', function() {
 
 //controller for grid
 myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log',function($scope, $http, $interval, $modal, $log) {
-	
+	$scope.criteria = ["Equals", "Less than Equals to",  "Greater than equals to", "Less that","Greater than"];
 
+	//for selecting row in grid
 	$scope.myAppScopeProvider = {
 
-								      showInfo : function(row) {
-								           var modalInstance = $modal.open({
-								                controller: 'InfoController',
-								                templateUrl: 'ngTemplate/infoPopup.html',
-								                resolve: {
-								                  selectedRow: function () {                    
-								                      return row.entity;
-								                  }
+									      showInfo : function(row) {
+									           var modalInstance = $modal.open({
+									                controller: 'InfoController',
+									                templateUrl: 'ngTemplate/infoPopup.html',
+									                resolve: {
+									                  selectedRow: function () {                    
+									                      return row.entity;
+									                  }
 								          
 								                }
 								    });
@@ -89,7 +90,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	  }
 	
 	
-
+	
 	$scope.myData = [{Snum: "1", TradeId: 101, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber1",Status:"ERR",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	                 {Snum: "2", TradeId: 102, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber2",Status:"NEW",Repoflag:"YES",Security:"US458182CP58",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	                 {Snum: "3", TradeId: 103, FromDate: "06/07/2016",Todate:"07/06/2017",Subscriber:"Subscriber3",Status:"NMT",Repoflag:"YES",Security:"DE0001141547",CParty:"BBGB",Quantity:14000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
@@ -137,7 +138,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	         {Snum: "47", TradeId: 111, FromDate: "06/14/2016",Todate:"07/14/2017",Subscriber:"Subscriber11",Status:"NMT",Repoflag:"YES",Security:"XS0230228933",CParty:"BBGB",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	         {Snum: "48", TradeId: 112, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	         {Snum: "49", TradeId: 101, FromDate: "06/14/2016",Todate:"07/14/2017",Subscriber:"Subscriber11",Status:"NMT",Repoflag:"NO",Security:"DE0001141547",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Snum: "50", TradeId: 102, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"ERR",Repoflag:"NO",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"}];
+	         {Snum: "50", TradeId: 102, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"ERR",Repoflag:"True",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"}];
 
 	   $scope.Subscriber = ["Subscriber1", "Subscriber2", "Subscriber3","Subscriber4","Subscriber5","Subscriber6","Subscriber7","Subscriber8","Subscriber9","Subscriber10","Subscriber11","Subscriber12"];
 	    $scope.startDate='';
@@ -199,18 +200,23 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 		    }, true);   
 		   
 		   
-		   
+		 
 		   
 			$scope.activateFilter = function() 
 			  {
 			    var Subscriber = $scope.filterSubscriber || null;
 			    var Todate = ($scope.filterTodate) ? $scope.filterTodate.toString() : null;
 			    var FromDate = ($scope.filterFromDate) ? $scope.filterFromDate.toString() : null;
+			    var Repoflag=$scope.filterRepo || null;
+			    var Status=$scope.filterError || null;
 			  //  if (!Subscriber && !Todate) Subscriber='';
-			    
+			    console.log(Repoflag);
 			    $scope.filterData = angular.copy($scope.myData, []);
 			    $scope.filterData = $scope.filterData.filter( function(item) {
 			
+			   
+			    	
+			    	
 			 if(FromDate!=null )
 	    		{
 		    		if(Todate==null && Subscriber==null)
@@ -219,6 +225,10 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Todate.toString().indexOf(Todate) > -1);
 		    		else if(Todate==null && Subscriber!=null)
 		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Subscriber.indexOf(Subscriber)>-1);
+		    		else if(Repoflag=="YES")
+		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Repoflag.indexOf(Repoflag)>-1);
+		    		else if(Status=="ERR")
+		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Status.indexOf(Status)>-1);
 		    		else
 		    			return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 &&  item.FromDate.toString().indexOf(FromDate) > -1);
 	    		
@@ -232,20 +242,50 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Todate.toString().indexOf(Todate) > -1);
 		    		else if(FromDate==null && Subscriber!=null)
 		    			return (item.Todate.toString().indexOf(Todate) > -1 && item.Subscriber.indexOf(Subscriber)>-1);
+		    		else if(Repoflag=="YES")
+		    			return (item.Todate.toString().indexOf(Todate) > -1 && item.Repoflag.indexOf(Repoflag)>-1);
+		    		else if(Status=="ERR")
+		    			return (item.Todate.toString().indexOf(Todate) > -1 && item.Status.indexOf(Status)>-1);
+		    		
 		    		else
 		    			return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 &&  item.Todate.toString().indexOf(FromDate) > -1);
 	    		
 	    		}
 					    	
-			 if(Todate==null || FromDate==null)
+			 if((Todate==null || FromDate==null)&& Subscriber!=null)
 	    		{
-	    		return (item.Subscriber.indexOf(Subscriber)>-1);
+				  if(Repoflag=="YES" && Status=="ERR")
+					 return(item.Repoflag.toString().indexOf(Repoflag) > -1 && item.Status.toString().indexOf(Status) > -1 && item.Subscriber.indexOf(Subscriber)>-1)				 
+		    			
+				 else if(Repoflag=="YES")
+		    			return (item.Subscriber.toString().indexOf(Subscriber) > -1 && item.Repoflag.indexOf(Repoflag)>-1);
+				 else if(Status=="ERR")
+					 return (item.Subscriber.toString().indexOf(Subscriber) > -1 && item.Status.indexOf(Status)>-1);
+				 else
+				 return (item.Subscriber.indexOf(Subscriber)>-1);
 	    		}
-			 else
+			 
+			 
+			 if(Repoflag=="YES" && Status=="ERR")
 	    		{
-	    		return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 &&  item.FromDate.toString().indexOf(FromDate) > -1);
+	    	
+	    		return (item.Repoflag.toString().indexOf(Repoflag) > -1 && item.Status.toString().indexOf(Status) > -1 );
 	    		}
-			    	// return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 ||  item.FromDate.toString().indexOf(FromDate) > -1);
+	    	
+	    	 if(Repoflag=="YES")
+		    	{
+		    	return (item.Repoflag.toString().indexOf(Repoflag) > -1 );
+		    	}
+		    	
+		    	 if(Status=="ERR")
+	    	{
+	    	return (item.Status.toString().indexOf(Status) > -1 );
+	    	}
+		    	 else
+		    		{
+		    		return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 &&  item.FromDate.toString().indexOf(FromDate) > -1 && item.Repoflag.indexOf(Repoflag)>-1 && item.Status.indexOf(Status)>-1);
+		    		}
+		    	 // return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 ||  item.FromDate.toString().indexOf(FromDate) > -1);
 			    });
 			  };
 			    
@@ -260,7 +300,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 					   paginationOptions: $scope.pagingOptions,
 					   filterOptions: $scope.filteroptions ,
 					   enablePaging: true,
-					   
+					   enableFiltering: true,
 				        showFooter: true,
 				        enableSorting: true,
 					    multiSelect: false,
@@ -285,27 +325,8 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	  //binding data to grid 
 	// 	$scope.gridOptions = { data: 'filterData',filterOptions: $scope.filteroptions };
 	  
-	  	
-		
-	  	//reset function
-	    $scope.reset=function()
-	       {
-	    	 $scope.filterTodate=' ';
-	    	 $scope.filterSubscriber=' ';
-	    	 $scope.filterFromDate=' ';
-	    	 $scope.Var1=' ';
-	    	
-	    	 $scope.filterData = angular.copy($scope.myData, []);
-	    	 $scope.gridOptions = { data: 'filterData',filterOptions: $scope.filteroptions };
-		    }
-	    
-	    $scope.Submit=function(){
-	      
-	    console.log($scope.startDate);
-	    console.log($scope.EndDate);
-	    console.log($scope.selectedSubscriber);
-	    console.log($scope.Var1);
-	    }
+			 
+	   
 }]);
 
 
@@ -328,3 +349,6 @@ myApp.controller('InfoController',
 	]);
 
 
+myApp.controller('modalController', ['$scope', function($scope) {
+    
+}]);

@@ -8,62 +8,26 @@
 
 
 
-#menu {
-  list-style:none;
-  padding:0;
-  text-align:center;
-}
-
-.link {
-  display:inline-block;
-  width:24%;
-  vertical-align:top;
-  position:relative;
-}
-
-.linkName {
-  padding:10px 5px;
-  text-decoration:none;
-  color:black;
-  display:block;
-  cursor:pointer;
-}
-
-
 input, label {
     float:left;
     margin:5px;
 }
 
 table, th, td {
-    border: 0;
+    border: 3;
     border-collapse: collapse;
+    border-color: black;
+      cellspacing: 5;
+      cellpadding: 5;
 }
 th, td {
-    padding: 0px;
+    padding: -2px;
 }
 
 .linkName:hover, .highlight {
   background-color:lightgray;
 }
 
-.submenu {
-  width:99.5%;
-  padding:0;
-  list-style:none;
-  border-left:1px solid black;
-  border-right:1px solid black;
-  border-bottom:1px solid black;
-  text-align:left;
-  display:none;
-  position:absolute;
-  background-color:white;
-}
-
-.sublink {
-  margin:7px 10px;
-  cursor:pointer;
-}
 
 
 
@@ -105,4 +69,121 @@ div.block label{
 div.block .input{
   margin-left:4px;
   float:left;
+}
+
+
+.panel {
+  display: inline-block;
+  background: #c0c0c0;
+  min-height: 50px;
+  height: 40px;
+  margin: 10px;
+  padding: 10px;
+}
+.panel1 {
+  min-width: 100px;
+   background: #c0c0c0;
+  width: 400px;
+  height: 40px;
+  margin-bottom: 0;
+  box-shadow: 1;
+}
+.panel2 {
+  min-width: 100px;
+  width: 60px;
+}
+
+#grid
+{
+	margin-top: 15px;
+}
+
+.button
+{
+	margin-top: 10px;
+	
+}
+
+#primary_nav_wrap
+{
+	margin-top:15px;
+}
+
+#primary_nav_wrap ul
+{
+	list-style:none;
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0;
+	
+	
+}
+
+#primary_nav_wrap ul a
+{
+	display:inline-block;
+	color:#333;
+	text-decoration:none;
+	 vertical-align:top;
+	font-weight:700;
+	font-size:14px;
+	line-height:32px;
+	padding:0 15px;
+	  position:relative;
+	
+}
+
+#primary_nav_wrap ul li
+{  display:inline-block;
+    position:relative;
+	float:left;
+	margin:0;
+	padding:0
+	
+}
+
+#primary_nav_wrap ul li.current-menu-item
+{
+	background:#488dcc;
+}
+#primary_nav_wrap ul li:hover
+{
+	background:#488dcc;
+}
+
+#primary_nav_wrap ul ul
+{
+	display:none;
+	position:absolute;
+	top:100%;
+	left:0;
+	background:#fff;
+	padding:0
+}
+
+#primary_nav_wrap ul ul li
+{
+	float:none;
+	width:200px
+}
+
+#primary_nav_wrap ul ul a
+{
+	line-height:120%;
+	padding:10px 15px
+}
+
+#primary_nav_wrap ul ul ul
+{
+	top:0;
+	left:100%
+}
+
+#primary_nav_wrap ul li:hover > ul
+{
+	display:block;
+	
+  background-color:lightgray;
+}
 }
