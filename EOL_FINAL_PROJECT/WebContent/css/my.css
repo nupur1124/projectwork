@@ -11,6 +11,7 @@
 input, label {
     float:left;
     margin:5px;
+ 
 }
 
 table, th, td {
@@ -102,6 +103,39 @@ div.block .input{
 {
 	margin-top: 10px;
 	
+}
+
+.tablabel
+{
+	font-weight:bolder;
+}
+#tabledetails
+{
+	
+	border: 1px solid black;
+	margin:5px;
+	cellpadding:3px ;
+	cellspacing:3px;
+	 align:left;
+	 font-size: 9pt; 
+	 width:70%;
+}
+#modalstyle input,label
+{
+	 float:left;
+       width:80%;
+}
+
+
+#modalstyle table 
+{
+	 
+    text-align: left;
+	margin-left:auto;
+	margin-right:auto;
+float: left;
+    width:100%
+
 }
 
 #primary_nav_wrap

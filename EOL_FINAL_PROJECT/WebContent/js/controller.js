@@ -53,6 +53,7 @@ myApp.directive('submenu', function() {
 });
 
 
+
 //controller for grid
 myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log',function($scope, $http, $interval, $modal, $log) {
 	$scope.criteria = ["Equals", "Less than Equals to",  "Greater than equals to", "Less that","Greater than"];
@@ -63,7 +64,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 									      showInfo : function(row) {
 									           var modalInstance = $modal.open({
 									                controller: 'InfoController',
-									                templateUrl: 'ngTemplate/infoPopup.html',
+									                templateUrl: 'modal.html',
 									                resolve: {
 									                  selectedRow: function () {                    
 									                      return row.entity;
@@ -89,7 +90,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	                 '</div>';
 	  }
 	
-	
+	 $scope.gridOptions = {}; 
 	
 	$scope.myData = [{Snum: "1", TradeId: 101, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber1",Status:"ERR",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	                 {Snum: "2", TradeId: 102, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber2",Status:"NEW",Repoflag:"YES",Security:"US458182CP58",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
