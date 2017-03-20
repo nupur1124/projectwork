@@ -57,7 +57,8 @@ myApp.directive('submenu', function() {
 //controller for grid
 myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log',function($scope, $http, $interval, $modal, $log) {
 	$scope.criteria = ["Equals", "Less than Equals to",  "Greater than equals to", "Less that","Greater than"];
-
+	 $scope.gridOptions = {}; 
+	 $scope.count=0;	
 	//for selecting row in grid
 	$scope.myAppScopeProvider = {
 
@@ -90,8 +91,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	                 '</div>';
 	  }
 	
-	 $scope.gridOptions = {}; 
-	
+
 	$scope.myData = [{Snum: "1", TradeId: 101, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber1",Status:"ERR",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	                 {Snum: "2", TradeId: 102, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber2",Status:"NEW",Repoflag:"YES",Security:"US458182CP58",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	                 {Snum: "3", TradeId: 103, FromDate: "06/07/2016",Todate:"07/06/2017",Subscriber:"Subscriber3",Status:"NMT",Repoflag:"YES",Security:"DE0001141547",CParty:"BBGB",Quantity:14000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
@@ -205,6 +205,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 		   
 			$scope.activateFilter = function() 
 			  {
+				$scope.count++; //to load grid on click
 			    var Subscriber = $scope.filterSubscriber || null;
 			    var Todate = ($scope.filterTodate) ? $scope.filterTodate.toString() : null;
 			    var FromDate = ($scope.filterFromDate) ? $scope.filterFromDate.toString() : null;

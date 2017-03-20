@@ -83,7 +83,7 @@
 	<div class="row">
 					
 			<div class="col-xs-6 col-md-4">
-				<div   class="grid"  ui-grid="gridOptions" ui-grid-pagination class="myGrid" 
+				<div ng-if="count!=0 && gridOptions.data.length > 0 " class="grid"  ui-grid="gridOptions" ui-grid-pagination class="myGrid" 
 						ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit> </div> 
 				</div>
 
