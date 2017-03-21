@@ -210,13 +210,31 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 			    var FromDate = ($scope.filterFromDate) ? $scope.filterFromDate.toString() : null;
 			    var Repoflag=$scope.filterRepo || null;
 			    var Status=$scope.filterError || null;
+			  // var ISMAref=$scope.filterISMAref ||null;
+			    var FOReference=$scope.RadioValue ||null;
+			    var Referenceno=$scope.FilterRadioValue ||null;
+			    
+			  
+			   // var FOReferenceno=$scope.filterFOReferenceno ||null;
 			  //  if (!Subscriber && !Todate) Subscriber='';
-			    console.log(Repoflag);
+			   // console.log("shubham"+Referenceno);
+			    //console.log(+Repoflag);
 			    $scope.filterData = angular.copy($scope.myData, []);
 			    $scope.filterData = $scope.filterData.filter( function(item) {
-			
-			   
 			    	
+			    	
+			    	 if(Referenceno=="FOReference"){
+					    	
+					    	console.log("gjsgjkgsdggjkdgjd"+FOReference);
+				    			return (item.FOReference.toString().indexOf(FOReference) > -1 );
+					    	
+					     }
+			    	 else{
+			    		 return (item.ISMAref.toString().indexOf(FOReference) > -1 );
+			    		 
+			    	 }
+			   
+		    	
 			    	
 			 if(FromDate!=null )
 	    		{

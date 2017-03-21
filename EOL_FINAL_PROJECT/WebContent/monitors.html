@@ -64,14 +64,32 @@
   <tr>
     <td><label>Subscriber:</label></td>
     <td><select ng-model="filterSubscriber" ng-options="x for x in Subscriber" /></td>
+    </tr>
+    </table>
+    <hr size="100">
+    
+    <table width="75%">
+     
+    <tr> 
+   	<td ><label>Referenceno:</label></td>
+  	<td ><input type="text" ng-model="RadioValue"/></td>
+  	
+  	<td><input type="radio"  ng-model="FilterRadioValue" value="FOReference" checked >FOReference</td>
+  	<td><input type="radio"  ng-model="FilterRadioValue" value="ISMAref"  >ISMAref</td>
+  
+  	
+  </tr>
+    </table>
+    <hr>
+    <table width="75%">
+    <tr>
   	<td><label>RepoClear:</label></td>
-  	<td><input type="checkbox"  ng-true-value="'YES'"   ng-false-value="'NO'" ng-model="filterRepo" /></td>  
-  </tr>
-  <tr> 
+  	<td><input type="checkbox" ng-true-value="'YES'"   ng-false-value="'NO'" ng-model="filterRepo" /></td>  
   	<td><label>Show Errors:</label></td>
-  	<td><input type="checkbox"  ng-true-value="'ERR'" ng-model="filterError"/></td>
-  	<td colspan=2>&nbsp;</td>
+  	<td><input type="checkbox" ng-true-value="'ERR'" ng-model="filterError"/></td>
+  
   </tr>
+   
 </table>
 <div class="button">
   <button class="btn btn-primary" type="submit" ng-click="activateFilter()">Search</button> &nbsp;
