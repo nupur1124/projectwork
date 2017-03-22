@@ -225,18 +225,16 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 			    	
 			    	 if(Referenceno=="FOReference"){
 					    	
-					    	console.log("gjsgjkgsdggjkdgjd"+FOReference);
-				    			return (item.FOReference.toString().indexOf(FOReference) > -1 );
+					    return (item.FOReference.toString().indexOf(FOReference) > -1 );
 					    	
 					     }
-			    	 else{
+			    	 else if(Referenceno=="ISMAref"){
 			    		 return (item.ISMAref.toString().indexOf(FOReference) > -1 );
 			    		 
 			    	 }
 			   
-		    	
-			    	
-			 if(FromDate!=null )
+		    		    	
+			   else if(FromDate!=null )
 	    		{
 		    		if(Todate==null && Subscriber==null)
 		    			return (item.FromDate.toString().indexOf(FromDate) > -1 );
@@ -253,7 +251,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	    		
 	    		}
 					    	
-			 if(Todate!=null)
+			    	 else  if(Todate!=null)
 	    		{
 		    		if(FromDate==null && Subscriber==null)
 		    			return (item.Todate.toString().indexOf(Todate) > -1 );
@@ -271,8 +269,9 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	    		
 	    		}
 					    	
-			 if((Todate==null || FromDate==null)&& Subscriber!=null)
+			    	 else if((Todate==null || FromDate==null)&& Subscriber!=null)
 	    		{
+			    		 console.log("dhfjsh");
 				  if(Repoflag=="YES" && Status=="ERR")
 					 return(item.Repoflag.toString().indexOf(Repoflag) > -1 && item.Status.toString().indexOf(Status) > -1 && item.Subscriber.indexOf(Subscriber)>-1)				 
 		    			
@@ -285,18 +284,18 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	    		}
 			 
 			 
-			 if(Repoflag=="YES" && Status=="ERR")
+			    	 else if(Repoflag=="YES" && Status=="ERR")
 	    		{
 	    	
 	    		return (item.Repoflag.toString().indexOf(Repoflag) > -1 && item.Status.toString().indexOf(Status) > -1 );
 	    		}
 	    	
-	    	 if(Repoflag=="YES")
+			    	 else if(Repoflag=="YES")
 		    	{
 		    	return (item.Repoflag.toString().indexOf(Repoflag) > -1 );
 		    	}
 		    	
-		    	 if(Status=="ERR")
+			    	 else if(Status=="ERR")
 	    	{
 	    	return (item.Status.toString().indexOf(Status) > -1 );
 	    	}
