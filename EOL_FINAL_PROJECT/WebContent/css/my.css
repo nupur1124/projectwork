@@ -108,6 +108,8 @@ div.block .input{
 .tablabel
 {
 	font-weight:bolder;
+	    text-align: right;
+	    width:9%
 }
 #tabledetails
 {
@@ -125,7 +127,10 @@ div.block .input{
 	 float:left;
        width:80%;
 }
-
+#modalstyle input.textalign
+{
+	text-align: right;
+}
 
 #modalstyle table 
 {
@@ -134,10 +139,24 @@ div.block .input{
 	margin-left:auto;
 	margin-right:auto;
 float: left;
-    width:100%
+    width:100%;
+    table-layout: fixed;
 
 }
+#modalstyle table td.shrink {
+	  min-width: 250px;
+    white-space:nowrap;
+  
+}
+#modalstyle table td.expand {
+    width: 20%
 
+}
+#modalstyle b{
+	font-weight: 800;
+	font-size: 14pt
+}
+}
 #primary_nav_wrap
 {
 	margin-top:15px;

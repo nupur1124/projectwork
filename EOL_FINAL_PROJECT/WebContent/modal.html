@@ -11,37 +11,39 @@
     <form name="serviceForm">
     
 <table id="tabledetails"  border="1">
-<tbody>
-<tr style="height: 0px;">
-<td style="height: 0px; width: 151px;" class="tablabel">Reference:</td>
-<td style="height: 0px; width: 108px;" ><input name="ref" size="5" type="text" value="5XTDL" />/</td>
-<td style="height: 0px; width: 127px;"><input maxlength="2" name="field" size="2/" type="text" value="00" /></td>
-<td style="height: 0px; width: 70px;" class="tablabel">Leg:</td>
-<td style="height: 0px; width: 71px;" ><input name="num" size="3/" type="text" value="1" /></td>
-<td style="height: 0px; width: 39px;" class="tablabel">ISMA:</td>
-<td style="height: 0px; width: 120px;"><input name="num2" size="10" type="text" value="2022000088" /></td>
-<td style="height: 0px; width: 128px;"><input name="num3" size="3/" type="text" value="1" /></td>
-<td style="height: 0px; width: 98px;" class="tablabel">Trade Date:</td>
-<td style="height: 0px; width: 105px;"><input name="date" size="10" type="text" /></td>
-<td style="height: 0px; width: 105px;"><input name="time" size="10" type="text" value="15:00:09" /></td>
+
+<tr>
+<td class="tablabel" style="text-align:left">Reference:</td>
+<td class="shrink" ><input name="ref" size="5" type="text" value="5XTDL" /> &nbsp;<b>/</b></td>
+<td ><input maxlength="2" name="field" size="2" type="text" value="00" /></td>
+<td  class="tablabel" >Leg:</td>
+<td class="shrink" ><input name="num" size="3" type="text" value="1" /></td>
+<td class="tablabel">ISMA:</td>
+<td class="shrink"><input name="num2" size="10" type="text" value="2022000088" /></td>
+<td class="shrink" ><input name="num3" size="2" type="text" value="1" /></td>
+<td  class="tablabel">Trade Date:</td>
+<td class="shrink"><input name="date" size="10" type="text" value="15/08/10"/></td>
+<td class="shrink"><input name="time" size="10" type="text" value="15:00:09" /></td>
 </tr>
-<tr style="height: 27px;">
-<td style="height: 27px; width: 151px;" class="tablabel">Source System:</td>
-<td style="height: 27px; width: 108px;"><input name="ss" size="3/" type="text" value="VIS" /></td>
-<td style="height: 27px; width: 127px;" align=right class="tablabel">Trader:</td>
-<td style="height: 27px; width: 180px;" colspan="3"><input name="trader" type="text" value="KAJI,EIGEN" /></td>
-<td style="text-align: right; height: 27px; width: 346px;" colspan="3" class="tablabel">Entry Date:</td>
-<td style="height: 27px; width: 105px;"><input name="edate" size="10/" type="text" /></td>
-<td style="text-align: left; height: 27px; width: 105px;"><input name="time2" size="10" type="text" /></td>
+<tr>
+<td class="tablabel">Source System:</td>
+<td class="shrink"><input name="ss" size="3/" type="text" value="VIS" /></td>
+<td  align=right class="tablabel">Trader:</td>
+<td class="expand" colspan=2 ><input name="trader" size="30" type="text" value="KAJI,EIGEN" /></td>
+<td >&nbsp;</td>
+<td  colspan="3" class="tablabel">Entry Date:</td>
+<td class="shrink" ><input name="edate" size="10/" type="text" /></td>
+<td class="shrink"><input name="time2" size="10" type="text" /></td>
 </tr>
-<tr style="height: 5px;">
-<td style="height: 5px; width: 151px;" class="tablabel">Trade Status:</td>
-<td style="height: 5px; width: 108px;"><input name="ts" size="3/" type="text" value="UNM" /></td>
-<td style="height: 5px; width: 653px;" colspan="7" class="tablabel">Reported to TRAX. &nbsp;</td>
-<td style="text-align: right; height: 5px; width: 105px;" class="tablabel">Late:</td>
-<td style="height: 5px; width: 105px;"><input name="late" size="5" type="text" value="118" /></td>
+<tr>
+<td  class="tablabel"  style="text-align:left">Trade Status:</td>
+<td  class="shrink" ><input name="ts" size="3/" type="text" value="UNM" /></td>
+<td  class="expand"  colspan="2">Reported to TRAX. &nbsp;</td>
+<td colspan="5">&nbsp;</td>
+<td class="tablabel">Late:</td>
+<td  class="shrink"><input name="late" size="5" type="text" value="118" /></td>
 </tr>
-</tbody>
+
 </table>
     </form>
     </div>
@@ -49,65 +51,68 @@
     <div class="block">
     <form name="serviceForm2">
     
-<table id="tabledetails" ><!-- Middle Table Section-- Start -->
+<table id="tabledetails" border=1><!-- Middle Table Section-- Start -->
 
-<tr style="height: 27px;">
-<td class="tablabel" style="height: 27px; width: 92px;" class="tablabel">Purchase/Sell:</td>
-<td style="height: 27px; width: 105px;"><input size="2/" type="text" value="S" /></td>
-<td class="tablabel" style="height: 27px; width: 84px;" class="tablabel">Nomimnal:</td>
-<td style="height: 27px; width: 91px;" colspan="3"><input size="8/" type="text" value="5,00,0000" /></td>
-<td class="tablabel" style="height: 27px; width: 77px;" align="right" class="tablabel">Price:</td>
-<td style="height: 27px; width: 118px;" colspan="2"><input size="10/" type="text" value="101.479" /></td>
-<td class="tablabel" style="height: 27px; width: 63px;" class="tablabel">Currency:</td>
-<td style="height: 27px; width: 140px;"><input size="3/" type="text" value="JPY" /></td>
+<tr >
+<td  style="text-align:left" class="tablabel">Purchase/Sell:</td>
+<td  class="shrink"><input size="2/" type="text" value="S" /></td>
+<td class="tablabel" >Nominal:</td>
+<td   class="shrink" colspan="2"><input class="textalign" size="8/" type="text" value="5,000,000,000.00" /></td>
+<td  align="right" class="tablabel">Price:</td>
+<td   class="shrink" colspan="2"><input size="10/" type="text" value="101.479" /></td>
+<td colspan="2">&nbsp;</td>
+<td class="tablabel" >Currency:</td>
+<td  class="shrink"><input size="3/" type="text" value="JPY" /></td>
+
 </tr>
-<tr style="height: 27px;">
-<td class="tablabel" style="height: 27px; width: 92px;" class="tablabel">Subscriber:</td>
-<td style="height: 27px; width: 280px;" ><input name="ss" size="7" type="text" value="CSL LON" /></td>
-<td colspan=4></td>
-<td class="tablabel" style="height: 27px; width: 258px;" colspan="4" align="right" class="tablabel">Gross Consideration:</td>
-<td class="tablabel" style="text-align: left; height: 27px; width: 140px;"><input size="15/" type="text" value="5,6,000,990" /></td>
+<tr >
+<td style="text-align:left" class="tablabel">Subscriber:</td>
+<td ><input name="ss" size="7" type="text" value="CSL LON" /></td>
+<td colspan=5>&nbsp;</td>
+<td class="tablabel" colspan=3 align="right" class="tablabel">Gross Consideration:</td>
+<td colspan=2><input  class="textalign" size="25/" type="text" value="5,074,850,000.000" /></td>
 </tr>
-<tr style="height: 27px;">
-<td style="height: 27px; width: 92px;" class="tablabel" class="tablabel">Entity Code:</td>
-<td style="height: 27px; width: 105px;"><input name="ts" size="4/" type="text" value="UNM" /></td>
-<td style="height: 27px; width: 84px;" class="tablabel" class="tablabel">Book:</td>
-<td style="height: 27px; width: 168px;" colspan="4"><input size="6/" type="text" value="P3P2" /></td>
-<td style="text-align: right; height: 27px; width: 181px;" colspan="3" class="tablabel" class="tablabel">Net Consideration:</td>
-<td style="height: 27px; width: 140px;"><input size="15/" type="text" value="5,09,88,88,44,55" /></td>
+<tr >
+<td style="text-align:left" class="tablabel">Entity Code:</td>
+<td ><input name="ts" size="4/" type="text" value="UNM" /></td>
+<td class="tablabel">Book:</td>
+<td ><input size="6/" type="text" value="P3P2" /></td>
+<td colspan=4>&nbsp;</td>
+<td colspan="2"  class="tablabel">Net Consideration:</td>
+<td colspan=2 ><input class="textalign" size="15/" type="text" value="5,087,880,000.000" /></td>
 </tr>
-<tr style="height: 27px;">
-<td style="height: 27px; width: 92px;" class="tablabel">Counterparty:</td>
-<td style="height: 27px; width: 105px;"><input size="6" type="text" value="T002" /></td>
-<td style="height: 27px; width: 84px;"><input size="7/" type="text" value="SBC LON" /></td>
-<td style="height: 27px; width: 168px;" colspan="4">&nbsp;</td>
-<td style="height: 27px; width: 181px;" colspan="3" class="tablabel">Bargain Conditions:</td>
-<td style="height: 27px; width: 140px;"><input size="2/" type="text" value="RB" /></td>
+<tr >
+<td  style="text-align:left"  class="tablabel">Counterparty:</td>
+<td ><input size="6" type="text" value="T002" /></td>
+<td ><input size="7/" type="text" value="SBC LON" /></td>
+<td colspan="5">&nbsp;</td>
+<td colspan="3" class="tablabel">Bargain Conditions:</td>
+<td><input size="2/" type="text" value="RB" /></td>
 </tr>
-<tr style="height: 27px;">
-<td style="height: 27px; width: 92px;" class="tablabel">Issue:</td>
-<td style="height: 27px; width: 105px;"><input size="10" type="text" value="JP000777898" /></td>
-<td style="height: 27px; width: 84px;"><input size="4/" type="text" value="ISIN" /></td>
-<td style="height: 27px; width: 51px;" colspan="2">&nbsp;</td>
-<td style="height: 27px; width: 40px;" class="tablabel">Hugo:</td>
-<td style="height: 27px; width: 77px;"><input size="6" type="text" value="748563" /></td>
-<td style="height: 27px; width: 41px;" class="tablabel">NTPA:</td>
-<td style="height: 27px; width: 77px;"><input size="6/" type="text" value="7463" /></td>
-<td style="text-align: right; height: 27px; width: 63px;" class="tablabel">Type:</td>
-<td style="height: 27px; width: 140px;"><input size="2" type="text" value="12" /></td>
+<tr >
+<td style="text-align:left"  class="tablabel">Issue:</td>
+<td ><input size="10" type="text" value="JP000777898" /></td>
+<td ><input size="4/" type="text" value="ISIN" /></td>
+<td  colspan="3">&nbsp;</td>
+<td class="tablabel">Hugo:</td>
+<td ><input size="6" type="text" value="748563" /></td>
+<td  class="tablabel">NTPA:</td>
+<td ><input size="6/" type="text" value="7463" /></td>
+<td  class="tablabel">Type:</td>
+<td ><input size="2" type="text" value="12" /></td>
 </tr>
-<tr style="height: 21px;">
-<td style="height: 21px; width: 92px;">&nbsp;</td>
-<td style="text-align: left; height: 21px; width: 678px;" colspan="11">&nbsp;</td>
+<tr  >
+<td style="text-align:left" >&nbsp;</td>
+<td style="text-align: left;"  colspan="11">&nbsp;</td>
 </tr>
-<tr style="height: 4px;">
-<td style="height: 4px; width: 92px;" class="tablabel">Repo Type:</td>
-<td style="height: 4px; width: 105px;"><input size="2" type="text" value="SB" /></td>
-<td style="height: 4px; width: 84px;" class="tablabel">Open/Close:</td>
-<td style="height: 4px; width: 50px;"><input size="2/" type="text" /></td>
-<td style="width: 41px; height: 4px;" colspan="2">&nbsp;</td>
-<td style="text-align: right; height: 4px; width: 258px;" colspan="4" class="tablabel" align=right>Repo Interest Rate:</td>
-<td style="height: 4px; width: 140px;"><input size="8/" type="text" value="10,9594" /></td>
+<tr>
+<td  style="text-align:left" style="height: 4px; width: 92px;" class="tablabel">Repo Type:</td>
+<td ><input size="2" type="text" value="SB" /></td>
+<td  class="tablabel">Open/Close:</td>
+<td ><input size="2/" type="text" /></td>
+<td  colspan="3">&nbsp;</td>
+<td colspan="4" class="tablabel">Repo Interest Rate:</td>
+<td ><input size="8/" type="text" value="10,9594" /></td>
 </tr>
 
 </table>
@@ -121,28 +126,31 @@
     <form name="serviceForm3">
     <table id="tabledetails">
 
-<tr style="height: 27px;">
-<td style="width: 198px; height: 27px;" class="tablabel">Settlement Date:</td>
-<td style="width: 126px; height: 27px;"><input name="ref" size="10/" type="text" value="12/07/2016" /></td>
-<td style="width: 159px; height: 27px;" class="tablabel">Type:</td>
-<td style="width: 122px; height: 27px;"><input name="num" size="2/" type="text" value="DD" /></td>
-<td style="width: 167px; height: 27px;" class="tablabel">Rate:</td>
-<td style="width: 179px; height: 27px;"><input name="time" size="10" type="text" value="1,0000,00" /></td>
+<tr >
+<td style="text-align:left"  class="tablabel">Settlement Date:</td>
+<td ><input name="ref" size="10/" type="text" value="12/07/2016" /></td>
+<td colspan=3>&nbsp;</td>
+<td  class="tablabel">Type:</td>
+<td ><input name="num" size="2/" type="text" value="DD" /></td>
+<td colspan=2>&nbsp;</td>
+<td  class="tablabel">Rate:</td>
+<td colspan=2><input name="time" size="10" type="text" value="1,0000,00" /></td>
 </tr>
-<tr style="height: 27px;">
-<td style="width: 198px; height: 27px;" class="tablabel">Our Depot:</td>
-<td style="width: 126px; height: 27px;"><input name="ss" size="2/" type="text" value="DM" /></td>
-<td style="width: 159px; height: 27px;"><input name="trader" size="15/" type="text" value="Other Domestic" /></td>
-<td style="text-align: right; width: 122px; height: 27px;" class="tablabel">C'party Depot:</td>
-<td style="width: 167px; height: 27px;"><input name="ss" size="2" type="text" value="DM" /></td>
-<td style="width: 179px; height: 27px;"><input name="trader" type="text" value="Other Domestic size=15" /></td>
+<tr>
+<td style="text-align:left" style="width: 198px; height: 27px;" class="tablabel">Our Depot:</td>
+<td ><input name="ss" size="2/" type="text" value="DM" /></td>
+<td colspan=3 ><input name="trader" size="15/" type="text" value="Other Domestic" /></td>
+<td colspan=2 class="tablabel">C'party Depot:</td>
+<td colspan=2>&nbsp;</td>
+<td ><input name="ss" size="2" type="text" value="DM" /></td>
+<td colspan=2><input name="trader" type="text" value="Other Domestic size" /></td>
 </tr>
-<tr style="height: 27px;">
-<td style="width: 198px; height: 27px;" class="tablabel">Settlement Currency:</td>
-<td style="width: 126px; height: 27px;"><input name="ts" size="3/" type="text" value="JPY" /></td>
-<td style="width: 281px; height: 27px;" colspan="2">&nbsp;</td>
-<td style="text-align: right; width: 167px; height: 27px;" class="tablabel">Country of Settlement:</td>
-<td style="width: 179px; height: 27px;"><input name="late" size="5" type="text" value="JPN" /></td>
+<tr >
+<td  style="text-align:left" class="tablabel">Settlement Currency:</td>
+<td ><input name="ts" size="3/" type="text" value="JPY" /></td>
+<td  colspan="6">&nbsp;</td>
+<td  colspan=3 class="tablabel">Country of Settlement:</td>
+<td ><input name="late" size="3" type="text" value="JPN" /></td>
 </tr>
 
 </table>
@@ -151,14 +159,7 @@
     </div>
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+        
     
     </div>
      </nav>

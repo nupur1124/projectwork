@@ -343,7 +343,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	  //binding data to grid 
 	// 	$scope.gridOptions = { data: 'filterData',filterOptions: $scope.filteroptions };
 	  
-			 
+		 
 	   
 }]);
 
