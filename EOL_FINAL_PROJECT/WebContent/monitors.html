@@ -52,10 +52,10 @@
 <section  class="panel-body">
         <ul class="nav nav-tabs" ng-init="activeTab = 'By Date'">
             <li ng-class="{ active: activeTab === 'By Date' }">
-                <a ng-click="activeTab = 'By Date'" href="#">By Date</a>
+                <a ng-click="activeTab = 'By Date'" href="#">Search By Date</a>
             </li>
             <li ng-class="{ active: activeTab === 'By Reference No' }">
-                <a ng-click="activeTab = 'By Reference No'" href="#">By Reference No</a>
+                <a ng-click="activeTab = 'By Reference No'" href="#">Search By Ref No</a>
             </li>
            
         </ul>
@@ -81,7 +81,7 @@
   <td><input type="checkbox"  ng-true-value="'YES'"   ng-false-value="'NO'" ng-model="filterRepo" /></td>  
   </tr>
   <tr> 
-  <td><label>Show Errors:</label></td>
+  <td><label>Show Errors Only:</label></td>
   <td><input type="checkbox"  ng-true-value="'ERR'" ng-model="filterError"/></td>
   <td colspan=2>&nbsp;</td>
   </tr>
@@ -108,24 +108,15 @@
     <tr> 
    	<td width=17%><label>Reference No:</label></td>
   	<td align="right"><input type="text" ng-model="RadioValue"/></td>
-  	
+  	</tr>
+  	<tr>
   	<td><label><input type="radio"  ng-model="FilterRadioValue" value="FOReference" checked >FOReference</label></td>
   	<td><label><input type="radio"  ng-model="FilterRadioValue" value="ISMAref"  >ISMAref</label></td>
   
   	
   </tr>
     </table>
-    <hr>
-    <table width="75%">
-    <tr>
-  	  
-  	<td width=17%><label>Show Errors:</label></td>
-  	<td align="right"><input type="checkbox" ng-true-value="'ERR'" ng-model="filterError"/></td>
-  	
   
-  </tr>
-   
-</table>
 
 <div class="button">
   <button class="btn btn-primary" type="submit" ng-click="activateFilter()">Search</button> &nbsp;
