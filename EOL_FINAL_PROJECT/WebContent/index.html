@@ -40,7 +40,7 @@
      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.js"></script>
 
-
+<link href="./css/menu.css" rel="stylesheet" />
    </head>
    
    <body>
@@ -50,45 +50,49 @@
          
          <section ng-app="app" ng-controller="TabController as tab">
              
-             <nav id="primary_nav_wrap" >
-<ul>
-                 <li   ng-class="{active:tab.isSet(0)}"><a href ng-click="#">Trades</a>  
-	                 <ul >
+             <nav >
+<ul id="menu">
+                 <li  ng-class="{active:tab.isSet(0)}"><a class="drop" href ng-click="#">Trades</a>  
+                 <div class="dropdown_1column align_left">
+        
+                <div class="col_1">
+                
+                    <ul class="greybox">
+	                 
 					        <li   ng-class="{active:tab.isSet(1)}">
-					           <a href ng-click="tab.setTab(1)">Transaction Monitor...</a>
+					           <a href ng-click="tab.setTab(1)">Transaction Monitor</a>
 					        </li>
 					       <!--  <li class="sublink" ng-class="{active:tab.isSet(0)}">
 					            <a href ng-click="tab.setTab(0)">Details</a>
 					        </li>   --> 
 	             	 </ul>
+	             	 </div>
+	             	 </div>
      			 </li>
      			 
-               <li  ng-class="{active:tab.isSet(2)}"><a href ng-click="tab.setTab(2)">Maintenance</a>
-               <ul >
+               <li  ng-class="{active:tab.isSet(2)}"><a  class="drop" href ng-click="tab.setTab(2)">Maintenance</a>
+                <div class="dropdown_3columns align_left">
+        <div class="col_1">
+                
+                    <ul class="greybox" >
 					        <li  ng-class="{active:tab.isSet(0)}">
-					           <a href ng-click="tab.setTab(0)">FI Trade Control</a>
-					           
-					            <ul >
-					        <li class="dir"  ng-class="{active:tab.isSet(0)}">
-					           <a href ng-click="tab.setTab(0)">Suppression to Non Matchable</a>
-					        </li>
-					        <li  class="dir"  ng-class="{active:tab.isSet(0)}">
-					            <a href ng-click="tab.setTab(0)">Force to Matchable</a>
-					        </li>   
-	             	 </ul>
-					        </li>
+					           <a  href ng-click="tab.setTab(0)">FI Trade Control</a>
+					 	             	
+	             	        </li>
 					         <li  ng-class="{active:tab.isSet(0)}">
-					            <a href ng-click="tab.setTab(0)">Settlement Types </a>
+					         <a href ng-click="tab.setTab(0)">Settlement Types </a>
 					        </li>   
 					         <li  ng-class="{active:tab.isSet(0)}">
 					            <a href ng-click="tab.setTab(0)">Repo Types</a>
 					        </li> 
 	             	 </ul>
+	             	 </div>
+	             	 </div>
                </li>
              </ul>
-</nav>
-      <hr>
-      <br>
+             
+             
+
       <div ng-show="tab.isSet(0)">
        		<h4></h4>
       </div>
@@ -100,7 +104,7 @@
       <div ng-show="tab.isSet(2)">
          	<h4></h4>
       </div>
-    
+    </nav>
          </section>
       </div>
 

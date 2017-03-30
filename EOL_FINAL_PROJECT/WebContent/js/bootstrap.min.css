@@ -5220,7 +5220,8 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover,
 }
 
 .panel-body {
-	padding: 15px
+	padding: 10px;
+	margin:0px 70px 0px 65px;
 }
 
 .panel-heading {
