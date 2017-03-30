@@ -52,10 +52,10 @@
 <section  class="panel-body">
         <ul class="nav nav-tabs" ng-init="activeTab = 'By Date'">
             <li ng-class="{ active: activeTab === 'By Date' }">
-                <a ng-click="activeTab = 'By Date'" href="#">Search By Date</a>
+                <a ng-click="activeTab = 'By Date';reloadRoute()" href="#">Search By Date</a>
             </li>
             <li ng-class="{ active: activeTab === 'By Reference No' }">
-                <a ng-click="activeTab = 'By Reference No'" href="#">Search By Ref No</a>
+                <a   ng-click="activeTab = 'By Reference No';reloadRoute()" href="#">Search By Ref No</a>
             </li>
            
         </ul>
@@ -88,7 +88,7 @@
 </table>
 <div class="button">
   <button class="btn btn-primary" type="submit" ng-click="activateFilter()" >Search</button> &nbsp;
-  <button  class="btn btn-primary" type="reset" >CANCEL</button>
+  <button  class="btn btn-primary" type="reset" ng-click="reloadRoute()">CANCEL</button>
   
 </div>
 </form>
@@ -121,7 +121,7 @@
 <div class="button">
   <button class="btn btn-primary" type="submit" ng-click="activateFilter()">Search</button> &nbsp;
   
-    <button  class="btn btn-primary" type="reset" >CANCEL</button>
+    <button  class="btn btn-primary" type="reset" ng-click="reloadRoute()">CANCEL</button>
   
 </div>
             </div>

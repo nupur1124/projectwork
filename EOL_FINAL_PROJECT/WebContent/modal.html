@@ -10,24 +10,24 @@
     <div class="block">
     <form name="serviceForm">
     
-<table id="tabledetails"  border="1">
+<table id="tabledetails" >
 
 <tr>
 <td class="tablabel" style="text-align:left">Reference:</td>
-<td class="shrink" ><input name="ref" size="5" type="text" value="5XTDL" /> &nbsp;<b>/</b></td>
+<td class="shrink" ><input name="ref" size="5" type="text" value={{selectedRow.FOReference}} /> &nbsp;<b>/</b></td>
 <td ><input maxlength="2" name="field" size="2" type="text" value="00" /></td>
 <td  class="tablabel" >Leg:</td>
 <td class="shrink" ><input name="num" size="3" type="text" value="1" /></td>
 <td class="tablabel">ISMA:</td>
-<td class="shrink"><input name="num2" size="10" type="text" value="2022000088" /></td>
+<td class="shrink"><input name="num2" size="10" type="text" value={{selectedRow.ISMAref}} /></td>
 <td class="shrink" ><input name="num3" size="2" type="text" value="1" /></td>
 <td  class="tablabel">Trade Date:</td>
-<td class="shrink"><input name="date" size="10" type="text" value="15/08/10"/></td>
+<td class="shrink"><input name="date" size="10" type="text" value={{selectedRow.FromDate}}/></td>
 <td class="shrink"><input name="time" size="10" type="text" value="15:00:09" /></td>
 </tr>
 <tr>
 <td class="tablabel">Source System:</td>
-<td class="shrink"><input name="ss" size="3/" type="text" value="VIS" /></td>
+<td class="shrink"><input name="ss" size="3/" type="text" value={{selectedRow.Source}} /></td>
 <td  align=right class="tablabel">Trader:</td>
 <td class="expand" colspan=2 ><input name="trader" size="30" type="text" value="KAJI,EIGEN" /></td>
 <td >&nbsp;</td>
@@ -37,7 +37,7 @@
 </tr>
 <tr>
 <td  class="tablabel"  style="text-align:left">Trade Status:</td>
-<td  class="shrink" ><input name="ts" size="3/" type="text" value="UNM" /></td>
+<td  class="shrink" ><input name="ts" size="3/" type="text" value={{selectedRow.Status}} /></td>
 <td  class="expand"  colspan="2">Reported to TRAX. &nbsp;</td>
 <td colspan="5">&nbsp;</td>
 <td class="tablabel">Late:</td>
@@ -51,7 +51,7 @@
     <div class="block">
     <form name="serviceForm2">
     
-<table id="tabledetails" border=1><!-- Middle Table Section-- Start -->
+<table id="tabledetails" ><!-- Middle Table Section-- Start -->
 
 <tr >
 <td  style="text-align:left" class="tablabel">Purchase/Sell:</td>
@@ -67,7 +67,7 @@
 </tr>
 <tr >
 <td style="text-align:left" class="tablabel">Subscriber:</td>
-<td ><input name="ss" size="7" type="text" value="CSL LON" /></td>
+<td ><input name="ss" size="7" type="text" value={{selectedRow.Subscriber}} LON" /></td>
 <td colspan=5>&nbsp;</td>
 <td class="tablabel" colspan=3 align="right" class="tablabel">Gross Consideration:</td>
 <td colspan=2><input  class="textalign" size="25/" type="text" value="5,074,850,000.000" /></td>
@@ -83,7 +83,7 @@
 </tr>
 <tr >
 <td  style="text-align:left"  class="tablabel">Counterparty:</td>
-<td ><input size="6" type="text" value="T002" /></td>
+<td ><input size="6" type="text" value={{selectedRow.CParty}} /></td>
 <td ><input size="7/" type="text" value="SBC LON" /></td>
 <td colspan="5">&nbsp;</td>
 <td colspan="3" class="tablabel">Bargain Conditions:</td>
@@ -99,7 +99,7 @@
 <td  class="tablabel">NTPA:</td>
 <td ><input size="6/" type="text" value="7463" /></td>
 <td  class="tablabel">Type:</td>
-<td ><input size="2" type="text" value="12" /></td>
+<td ><input size="2" type="text" value={{selectedRow.Type}} /></td>
 </tr>
 <tr  >
 <td style="text-align:left" >&nbsp;</td>
@@ -147,7 +147,7 @@
 </tr>
 <tr >
 <td  style="text-align:left" class="tablabel">Settlement Currency:</td>
-<td ><input name="ts" size="3/" type="text" value="JPY" /></td>
+<td ><input name="ts" size="3/" type="text" value={{selectedRow.Ccy}} /></td>
 <td  colspan="6">&nbsp;</td>
 <td  colspan=3 class="tablabel">Country of Settlement:</td>
 <td ><input name="late" size="3" type="text" value="JPN" /></td>

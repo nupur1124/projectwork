@@ -140,7 +140,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	         {Source: "FIT", FOReference:"76546123/01",ISMAref:"51122113",TradeId: 112, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	         {Source: "FTS", FOReference:"10Z8GC",ISMAref:"526822154",TradeId: 101, FromDate: "06/14/2016",Todate:"07/14/2017",Subscriber:"Subscriber11",Status:"NMT",Repoflag:"NO",Security:"DE0001141547",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
 	         {Source: "VIS", FOReference:"50097600/01",ISMAref:"588221139",TradeId: 102, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"ERR",Repoflag:"True",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"}];
-	   $scope.Subscriber = ["Subscriber1", "Subscriber2", "Subscriber3","Subscriber4","Subscriber5","Subscriber6","Subscriber7","Subscriber8","Subscriber9","Subscriber10","Subscriber11","Subscriber12"];
+	   $scope.Subscriber = ["","Subscriber1", "Subscriber2", "Subscriber3","Subscriber4","Subscriber5","Subscriber6","Subscriber7","Subscriber8","Subscriber9","Subscriber10","Subscriber11","Subscriber12"];
 	    $scope.startDate='';
 	    $scope.EndDate='';
 	    $scope.selectedSubscriber='';
@@ -338,7 +338,18 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 				       
 				}
 
-		 
+			  $scope.reloadRoute = function() {
+				  console.log("hsdjfhj");
+				  $scope.count=0;
+				  $scope.RadioValue=""; 
+				  $scope.FilterRadioValue="";
+				  $scope.filterSubscriber="";
+				  $scope.filterError="";
+				  $scope.filterRepo="";
+				  $scope.filterTodate="";
+				  $scope.filterFromDate="";
+				  console.log( $scope.count);
+				}
 	//   $scope.filterData = angular.copy($scope.myData, []);
 	  //binding data to grid 
 	// 	$scope.gridOptions = { data: 'filterData',filterOptions: $scope.filteroptions };
