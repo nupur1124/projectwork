@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="./js/bootstrap.min.css">
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
       
-
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
 
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
     
@@ -74,9 +74,14 @@
     <td><input type="text" datepicker1=""  ng-model="filterTodate"/></td>
  </tr>
   
+  
+  
   <tr>
     <td><label>Subscriber:</label></td>
-    <td><select ng-model="filterSubscriber" ng-options="x for x in Subscriber" /></td>
+    <td> <select ng-model="filterSubscriber" >
+      <option ng-repeat="user in myData|unique:'subscriber'"  value="{{user.subscriber}}">{{user.subscriber}}</option>
+    </select>
+    </td>
   <td><label>RepoClear:</label></td>
   <td><input type="checkbox"  ng-true-value="'YES'"   ng-false-value="'NO'" ng-model="filterRepo" /></td>  
   </tr>

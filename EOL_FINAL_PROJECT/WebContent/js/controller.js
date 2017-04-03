@@ -16,8 +16,6 @@ myApp.controller("TabController",function(){
 
 	});
 
-
-
 //for date picker directive
 myApp.directive('datepicker1', function() {
   return {
@@ -51,24 +49,54 @@ myApp.directive('submenu', function() {
     }
   };
 });
-
-
+//Filter for drop down menu
+myApp.filter('unique', function() {
+    return function(input, key) {
+    	if (input == undefined)
+    		input = [];
+        var unique = {};
+        var uniqueList = [];
+        for(var i = 0; i < input.length; i++){
+            if(typeof unique[input[i][key]] == "undefined"){
+                unique[input[i][key]] = "";
+                uniqueList.push(input[i]);
+            }
+        }
+        return uniqueList;
+    };
+});
 
 //controller for grid
-myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log',function($scope, $http, $interval, $modal, $log) {
-	$scope.criteria = ["Equals", "Less than Equals to",  "Greater than equals to", "Less that","Greater than"];
+myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log',function($scope, $http, $interval, $modal, $log,$templateCache) {
+	
+	
+	//Rest service calling
+	$http({method: 'get', url:'http://10.155.44.200:8090/TRAXUIService-1.0/action/login',cache: $templateCache}).
+    success(function(data, status, headers, config) {
+    	
+    	console.log(status);	
+    	$scope.myData = data;   //set view model
+			console.log("adjs"+status);
+    }).
+    error(function(data, status, headers, config) {
+			$scope.myData= data || "Request failed";
+			console.log("Error with status:"+status);
+    })
+    ;
+	
+	
 	 $scope.gridOptions = {}; 
 	 $scope.count=0;	
 	//for selecting row in grid
 	$scope.myAppScopeProvider = {
 
-									      showInfo : function(row) {
-									           var modalInstance = $modal.open({
-									                controller: 'InfoController',
-									                templateUrl: 'modal.html',
-									                resolve: {
-									                  selectedRow: function () {                    
-									                      return row.entity;
+			      showInfo : function(row) {
+			           var modalInstance = $modal.open({
+			                controller: 'InfoController',
+			                templateUrl: 'modal.html',
+			                resolve: {
+			                  selectedRow: function () {                    
+			                      return row.entity;
 									                  }
 								          
 								                }
@@ -81,7 +109,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 		           });
 		      },
 	rowFormatter :function( row ) {
-		     return row.entity.Status === 'ERR'; 
+		     return row.entity.status === 'ERR'; 
 		  }
 		  }
 	
@@ -91,219 +119,122 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 	                 '</div>';
 	  }
 	
-	
-	$scope.myData = [{Source: "VIS",FOReference:"10Z8GC", ISMAref:"57122154",TradeId: 101, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber1",Status:"ERR",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                 {Source: "FIT",FOReference:"10Z87Y",ISMAref:"526822154", TradeId: 102, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber2",Status:"NEW",Repoflag:"YES",Security:"US458182CP58",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                 {Source: "FTS",FOReference:"50097600/01",ISMAref:"58522113", TradeId: 103, FromDate: "06/07/2016",Todate:"07/06/2017",Subscriber:"Subscriber3",Status:"NMT",Repoflag:"YES",Security:"DE0001141547",CParty:"BBGB",Quantity:14000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                 {Source: "VIS",FOReference:"0644816510001",ISMAref:"51122113",TradeId: 104, FromDate: "06/07/2016",Todate:"07/07/2017",Subscriber:"Subscriber4",Status:"CAN",Repoflag:"YES",Security:"US458182CP58",CParty:"BBLL",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                 {Source: "FIT", FOReference:"76546123/01",ISMAref:"588221009",TradeId: 105, FromDate: "06/08/2016",Todate:"07/08/2017",Subscriber:"Subscriber5",Status:"ERR",Repoflag:"NO",Security:"DE0001141547",CParty:"C820",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS",FOReference:"10Z8GC", ISMAref:"",TradeId: 106, FromDate: "06/09/2016",Todate:"07/09/2017",Subscriber:"Subscriber6",Status:"NEW",Repoflag:"YES",Security:"XS0230228933",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS",FOReference:"10Z8GC", ISMAref:"",TradeId: 107, FromDate: "06/10/2016",Todate:"07/10/2017",Subscriber:"Subscriber7",Status:"NMT",Repoflag:"NO",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT",FOReference:"50097600/01", ISMAref:"51122113",TradeId: 108, FromDate: "06/11/2016",Todate:"07/11/2017",Subscriber:"Subscriber8",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FTS",FOReference:"0644816510001", ISMAref:"57122154",TradeId: 109, FromDate: "06/12/2016",Todate:"07/12/2017",Subscriber:"Subscriber9",Status:"ERR",Repoflag:"NO",Security:"DE0001141547",CParty:"BBLL",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS",FOReference:"10Z87Y", ISMAref:"",TradeId: 110, FromDate: "06/13/2016",Todate:"07/13/2017",Subscriber:"Subscriber10",Status:"NEW",Repoflag:"YES",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT",FOReference:"50097600/01", ISMAref:"",TradeId: 111, FromDate: "06/14/2016",Todate:"07/14/2017",Subscriber:"Subscriber11",Status:"NMT",Repoflag:"YES",Security:"DE0001141547",CParty:"BBGB",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FTS",FOReference:"10ZGGM", ISMAref:"51122113",TradeId: 112, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"CAN",Repoflag:"NO",Security:"DE0001141547",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS",FOReference:"76546123/01",ISMAref:"58522113", TradeId: 101, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber1",Status:"ERR",Repoflag:"YES",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                     {Source: "FTS", FOReference:"1651000",ISMAref:"",TradeId: 102, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber2",Status:"NEW",Repoflag:"YES",Security:"DE0001141547",CParty:"BBLL",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                     {Source: "FTS", FOReference:"50097600/01",ISMAref:"526822154",TradeId: 103, FromDate: "06/07/2016",Todate:"07/06/2017",Subscriber:"Subscriber3",Status:"NMT",Repoflag:"NO",Security:"XS0230228933",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                     {Source: "VIS", FOReference:"1651000",ISMAref:"",TradeId: 104, FromDate: "06/07/2016",Todate:"07/07/2017",Subscriber:"Subscriber4",Status:"CAN",Repoflag:"YES",Security:"US458182CP58",CParty:"BBGB",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                     {Source: "FTS",FOReference:"10Z8GC", ISMAref:"526822154",TradeId: 105, FromDate: "06/08/2016",Todate:"07/08/2017",Subscriber:"Subscriber5",Status:"ERR",Repoflag:"NO",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT", FOReference:"10Z87Y",ISMAref:"58522113",TradeId: 106, FromDate: "06/09/2016",Todate:"07/09/2017",Subscriber:"Subscriber6",Status:"NEW",Repoflag:"YES",Security:"DE0001141547",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS",FOReference:"10Z8GC", ISMAref:"51122113",TradeId: 107, FromDate: "06/10/2016",Todate:"07/10/2017",Subscriber:"Subscriber7",Status:"NMT",Repoflag:"NO",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FTS", FOReference:"76546123/01",ISMAref:"526822154",TradeId: 108, FromDate: "06/11/2016",Todate:"07/11/2017",Subscriber:"Subscriber8",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT", FOReference:"10Z87Y",ISMAref:"58522113",TradeId: 109, FromDate: "06/12/2016",Todate:"07/12/2017",Subscriber:"Subscriber9",Status:"ERR",Repoflag:"NO",Security:"DE0001141547",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS",FOReference:"50097600/01", ISMAref:"526822154",TradeId: 110, FromDate: "06/13/2016",Todate:"07/13/2017",Subscriber:"Subscriber10",Status:"NEW",Repoflag:"YES",Security:"XS0230228933",CParty:"C820",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS",FOReference:"10Z87Y", ISMAref:"51122113",TradeId: 111, FromDate: "06/14/2016",Todate:"07/14/2017",Subscriber:"Subscriber11",Status:"NMT",Repoflag:"YES",Security:"DE0001141547",CParty:"BBLL",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT",FOReference:"10Z8GC", ISMAref:"",TradeId: 112, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"CAN",Repoflag:"NO",Security:"DE0001141547",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS",FOReference:"76546123/01",ISMAref:"",TradeId: 101, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber1",Status:"ERR",Repoflag:"NO",Security:"DE0001141547",CParty:"BBGB",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                         {Source: "VIS",FOReference:"10Z8GC", ISMAref:"",TradeId: 102, FromDate: "06/05/2016",Todate:"07/04/2017",Subscriber:"Subscriber2",Status:"NEW",Repoflag:"YES",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                         {Source: "VIS",FOReference:"1651000", ISMAref:"526822154",TradeId: 103, FromDate: "06/07/2016",Todate:"07/06/2017",Subscriber:"Subscriber3",Status:"NMT",Repoflag:"YES",Security:"DE0001141547",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                         {Source: "FTS", FOReference:"10Z87Y",ISMAref:"51122113",TradeId: 104, FromDate: "06/07/2016",Todate:"07/07/2017",Subscriber:"Subscriber4",Status:"NMT",Repoflag:"NO",Security:"US458182CP58",CParty:"C820",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	                         {Source: "FIT", FOReference:"76546123/01",ISMAref:"",TradeId: 105, FromDate: "06/08/2016",Todate:"07/08/2017",Subscriber:"Subscriber5",Status:"ERR",Repoflag:"YES",Security:"XS0230228933",CParty:"BBGB",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"10Z87Y",ISMAref:"",TradeId: 106, FromDate: "06/09/2016",Todate:"07/09/2017",Subscriber:"Subscriber6",Status:"NEW",Repoflag:"YES",Security:"DE0001141547",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"1651000",ISMAref:"526822154",TradeId: 107, FromDate: "06/10/2016",Todate:"07/10/2017",Subscriber:"Subscriber7",Status:"CAN",Repoflag:"NO",Security:"XS0230228933",CParty:"C820",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT", FOReference:"50097600/01",ISMAref:"588221139",TradeId: 108, FromDate: "06/11/2016",Todate:"07/11/2017",Subscriber:"Subscriber8",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"BBLL",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"10Z87Y",ISMAref:"",TradeId: 109, FromDate: "06/12/2016",Todate:"07/12/2017",Subscriber:"Subscriber9",Status:"ERR",Repoflag:"NO",Security:"XS0230228933",CParty:"BBGB",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FTS", FOReference:"10Z8GC",ISMAref:"51122113",TradeId: 110, FromDate: "06/13/2016",Todate:"07/13/2017",Subscriber:"Subscriber10",Status:"NEW",Repoflag:"YES",Security:"DE0001141547",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"76546123/01",ISMAref:"",TradeId: 111, FromDate: "06/14/2016",Todate:"07/14/2017",Subscriber:"Subscriber11",Status:"NMT",Repoflag:"NO",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"50097600/01",ISMAref:"526822154",TradeId: 112, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"BBGB",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "39", FOReference:"1651000",ISMAref:"588221139",TradeId: 103, FromDate: "06/07/2016",Todate:"07/06/2017",Subscriber:"Subscriber3",Status:"NMT",Repoflag:"NO",Security:"DE0001141547",CParty:"BBLL",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT", FOReference:"1651000",ISMAref:"",TradeId: 104, FromDate: "06/07/2016",Todate:"07/07/2017",Subscriber:"Subscriber4",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FTS", FOReference:"10Z87Y",ISMAref:"526822154",TradeId: 105, FromDate: "06/08/2016",Todate:"07/08/2017",Subscriber:"Subscriber5",Status:"ERR",Repoflag:"NO",Security:"XS0230228933",CParty:"BBGB",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"76546123/01",ISMAref:"",TradeId: 106, FromDate: "06/09/2016",Todate:"07/09/2017",Subscriber:"Subscriber6",Status:"NEW",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"50097600/01",ISMAref:"51122113",TradeId: 107, FromDate: "06/10/2016",Todate:"07/10/2017",Subscriber:"Subscriber7",Status:"NMT",Repoflag:"NO",Security:"US458182CP58",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT", FOReference:"10Z8GC",ISMAref:"",TradeId: 108, FromDate: "06/11/2016",Todate:"07/11/2017",Subscriber:"Subscriber8",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT", FOReference:"76546123/01",ISMAref:"",TradeId: 109, FromDate: "06/12/2016",Todate:"07/12/2017",Subscriber:"Subscriber9",Status:"ERR",Repoflag:"YES",Security:"DE0001141547",CParty:"BBLL",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"1651000",ISMAref:"526822154",TradeId: 110, FromDate: "06/13/2016",Todate:"07/13/2017",Subscriber:"Subscriber10",Status:"NEW",Repoflag:"NO",Security:"US458182CP58",CParty:"USBP",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"10Z87Y",ISMAref:"",TradeId: 111, FromDate: "06/14/2016",Todate:"07/14/2017",Subscriber:"Subscriber11",Status:"NMT",Repoflag:"YES",Security:"XS0230228933",CParty:"BBGB",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FIT", FOReference:"76546123/01",ISMAref:"51122113",TradeId: 112, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"CAN",Repoflag:"YES",Security:"DE0001141547",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "FTS", FOReference:"10Z8GC",ISMAref:"526822154",TradeId: 101, FromDate: "06/14/2016",Todate:"07/14/2017",Subscriber:"Subscriber11",Status:"NMT",Repoflag:"NO",Security:"DE0001141547",CParty:"USBP",Quantity:50000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"},
-	         {Source: "VIS", FOReference:"50097600/01",ISMAref:"588221139",TradeId: 102, FromDate: "06/15/2016",Todate:"07/15/2017",Subscriber:"Subscriber12",Status:"ERR",Repoflag:"True",Security:"XS0230228933",CParty:"C820",Quantity:40000000.00,Price:99.7600,Ccy:"EUR",PS:"P",Type:"NTRD"}];
-	   $scope.Subscriber = ["","Subscriber1", "Subscriber2", "Subscriber3","Subscriber4","Subscriber5","Subscriber6","Subscriber7","Subscriber8","Subscriber9","Subscriber10","Subscriber11","Subscriber12"];
+		   
+	   
+	  
 	    $scope.startDate='';
 	    $scope.EndDate='';
-	    $scope.selectedSubscriber='';
+	    $scope.selectedsubscriber='';
 	    $scope.var1='';
 	      
 		   $scope.filterOptions = {
 				    filterText: '',
 				    useExternalFilter: true
 				  };
-		   
-		   $scope.pagingOptions = {
-				   pageSizes: [2, 4, 6],
-				  pageSize: 10,
-			        totalServerItems: 0,
-			        currentPage: 1
-			    };  
-		   
-		   $scope.setPagingData = function(data, page, pageSize){	
-		        var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-		        $scope.myData1 = pagedData;
-		        $scope.pagingOptions.totalServerItems = data.length;
-		        if (!$scope.$$phase) {
-		            $scope.$apply();
-		        }
-		    };
-		    
-		    
-		    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-		        setTimeout(function () {
-		        	var data1;
-
-		            if (searchText) {
-		                var ft = searchText.toLowerCase();
-		                $http.get('http://jsonplaceholder.typicode.com/posts/').success(function (largeLoad) {		
-		                    data1 = largeLoad.filter(function(item) {
-		                        return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
-		                    });
-		                    $scope.setPagingData(data1,page,pageSize);
-		                });            
-		            } else {
-		                $http.get('http://jsonplaceholder.typicode.com/posts/').success(function (largeLoad) {
-		                    $scope.setPagingData(largeLoad,page,pageSize);
-		                });
-		            }
-		        }, 100);
-		    };
-			
-		    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-			
-		    $scope.$watch('pagingOptions', function () {
-		    //	console.log("claasssic"+data1);
-		        console.log( "watch changed pagingOptions" );
-		        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-		    }, true);
-		   $scope.$watch('filterOptions', function () {
-		        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-		    }, true);   
-		   
-		   
 		 
 		   
 			$scope.activateFilter = function() 
 			  {
 				$scope.count++; //to load grid on click
-			    var Subscriber = $scope.filterSubscriber || null;
-			    var Todate = ($scope.filterTodate) ? $scope.filterTodate.toString() : null;
-			    var FromDate = ($scope.filterFromDate) ? $scope.filterFromDate.toString() : null;
-			    var Repoflag=$scope.filterRepo || null;
-			    var Status=$scope.filterError || null;
+			    var subscriber = $scope.filterSubscriber || null;
+			    var todate = ($scope.filtertodate) ? $scope.filtertodate.toString() : null;
+			    var fromDate = ($scope.filterfromDate) ? $scope.filterfromDate.toString() : null;
+			    var repoflag=$scope.filterRepo || null;
+			    var status=$scope.filterError || null;
 			  // var ISMAref=$scope.filterISMAref ||null;
-			    var FOReference=$scope.RadioValue ||null;
+			    var fOReference=$scope.RadioValue ||null;
 			    var Referenceno=$scope.FilterRadioValue ||null;
 			    
 			  
-			   // var FOReferenceno=$scope.filterFOReferenceno ||null;
-			  //  if (!Subscriber && !Todate) Subscriber='';
+			   // var fOReferenceno=$scope.filterfOReferenceno ||null;
+			  //  if (!subscriber && !todate) subscriber='';
 			   // console.log("shubham"+Referenceno);
-			    //console.log(+Repoflag);
+			    //console.log(+repoflag);
 			    $scope.filterData = angular.copy($scope.myData, []);
 			    $scope.filterData = $scope.filterData.filter( function(item) {
 			    	
 			    	
 			    	 if(Referenceno=="FOReference"){
 					    	
-					    return (item.FOReference.toString().indexOf(FOReference) > -1 );
+					    return (item.fOReference.toString().indexOf(fOReference) > -1 );
 					    	
 					     }
 			    	 else if(Referenceno=="ISMAref"){
-			    		 return (item.ISMAref.toString().indexOf(FOReference) > -1 );
+			    		 return (item.ismaref.toString().indexOf(ismaref) > -1 );
 			    		 
 			    	 }
 			   
 		    		    	
-			   else if(FromDate!=null )
+			   else if(fromDate!=null )
 	    		{
-		    		if(Todate==null && Subscriber==null)
-		    			return (item.FromDate.toString().indexOf(FromDate) > -1 );
-		    		else if(Todate!=null && Subscriber==null)
-		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Todate.toString().indexOf(Todate) > -1);
-		    		else if(Todate==null && Subscriber!=null)
-		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Subscriber.indexOf(Subscriber)>-1);
-		    		else if(Repoflag=="YES")
-		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Repoflag.indexOf(Repoflag)>-1);
-		    		else if(Status=="ERR")
-		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Status.indexOf(Status)>-1);
+		    		if(todate==null && subscriber==null)
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 );
+		    		else if(todate!=null && subscriber==null)
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.todate.toString().indexOf(todate) > -1);
+		    		else if(todate==null && subscriber!=null)
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.subscriber.indexOf(subscriber)>-1);
+		    		else if(repoflag=="YES")
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.repoflag.indexOf(repoflag)>-1);
+		    		else if(status=="ERR")
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.status.indexOf(status)>-1);
 		    		else
-		    			return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 &&  item.FromDate.toString().indexOf(FromDate) > -1);
+		    			return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.fromDate.toString().indexOf(fromDate) > -1);
 	    		
 	    		}
 					    	
-			    	 else  if(Todate!=null)
+			    	 else  if(todate!=null)
 	    		{
-		    		if(FromDate==null && Subscriber==null)
-		    			return (item.Todate.toString().indexOf(Todate) > -1 );
-		    		else if(FromDate!=null && Subscriber==null)
-		    			return (item.FromDate.toString().indexOf(FromDate) > -1 && item.Todate.toString().indexOf(Todate) > -1);
-		    		else if(FromDate==null && Subscriber!=null)
-		    			return (item.Todate.toString().indexOf(Todate) > -1 && item.Subscriber.indexOf(Subscriber)>-1);
-		    		else if(Repoflag=="YES")
-		    			return (item.Todate.toString().indexOf(Todate) > -1 && item.Repoflag.indexOf(Repoflag)>-1);
-		    		else if(Status=="ERR")
-		    			return (item.Todate.toString().indexOf(Todate) > -1 && item.Status.indexOf(Status)>-1);
+		    		if(fromDate==null && subscriber==null)
+		    			return (item.todate.toString().indexOf(todate) > -1 );
+		    		else if(fromDate!=null && subscriber==null)
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.todate.toString().indexOf(todate) > -1);
+		    		else if(fromDate==null && subscriber!=null)
+		    			return (item.todate.toString().indexOf(todate) > -1 && item.subscriber.indexOf(subscriber)>-1);
+		    		else if(repoflag=="YES")
+		    			return (item.todate.toString().indexOf(todate) > -1 && item.repoflag.indexOf(repoflag)>-1);
+		    		else if(status=="ERR")
+		    			return (item.todate.toString().indexOf(todate) > -1 && item.status.indexOf(status)>-1);
 		    		
 		    		else
-		    			return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 &&  item.Todate.toString().indexOf(FromDate) > -1);
+		    			return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.todate.toString().indexOf(fromDate) > -1);
 	    		
 	    		}
 					    	
-			    	 else if((Todate==null || FromDate==null)&& Subscriber!=null)
+			    	 else if((todate==null || fromDate==null)&& subscriber!=null)
 	    		{
 			    		 console.log("dhfjsh");
-				  if(Repoflag=="YES" && Status=="ERR")
-					 return(item.Repoflag.toString().indexOf(Repoflag) > -1 && item.Status.toString().indexOf(Status) > -1 && item.Subscriber.indexOf(Subscriber)>-1)				 
+				  if(repoflag=="YES" && status=="ERR")
+					 return(item.repoflag.toString().indexOf(repoflag) > -1 && item.status.toString().indexOf(status) > -1 && item.subscriber.indexOf(subscriber)>-1)				 
 		    			
-				 else if(Repoflag=="YES")
-		    			return (item.Subscriber.toString().indexOf(Subscriber) > -1 && item.Repoflag.indexOf(Repoflag)>-1);
-				 else if(Status=="ERR")
-					 return (item.Subscriber.toString().indexOf(Subscriber) > -1 && item.Status.indexOf(Status)>-1);
+				 else if(repoflag=="YES")
+		    			return (item.subscriber.toString().indexOf(subscriber) > -1 && item.repoflag.indexOf(repoflag)>-1);
+				 else if(status=="ERR")
+					 return (item.subscriber.toString().indexOf(subscriber) > -1 && item.status.indexOf(status)>-1);
 				 else
-				 return (item.Subscriber.indexOf(Subscriber)>-1);
+				 return (item.subscriber.indexOf(subscriber)>-1);
 	    		}
 			 
 			 
-			    	 else if(Repoflag=="YES" && Status=="ERR")
+			    	 else if(repoflag=="YES" && status=="ERR")
 	    		{
 	    	
-	    		return (item.Repoflag.toString().indexOf(Repoflag) > -1 && item.Status.toString().indexOf(Status) > -1 );
+	    		return (item.repoflag.toString().indexOf(repoflag) > -1 && item.status.toString().indexOf(status) > -1 );
 	    		}
 	    	
-			    	 else if(Repoflag=="YES")
+			    	 else if(repoflag=="YES")
 		    	{
-		    	return (item.Repoflag.toString().indexOf(Repoflag) > -1 );
+		    	return (item.repoflag.toString().indexOf(repoflag) > -1 );
 		    	}
 		    	
-			    	 else if(Status=="ERR")
+			    	 else if(status=="ERR")
 	    	{
-	    	return (item.Status.toString().indexOf(Status) > -1 );
+	    	return (item.status.toString().indexOf(status) > -1 );
 	    	}
 		    	 else
 		    		{
-		    		return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 &&  item.FromDate.toString().indexOf(FromDate) > -1 && item.Repoflag.indexOf(Repoflag)>-1 && item.Status.indexOf(Status)>-1);
+		    		return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.fromDate.toString().indexOf(fromDate) > -1 && item.repoflag.indexOf(repoflag)>-1 && item.status.indexOf(status)>-1);
 		    		}
-		    	 // return (item.Subscriber.indexOf(Subscriber)>-1 && item.Todate.toString().indexOf(Todate) > -1 ||  item.FromDate.toString().indexOf(FromDate) > -1);
+		    	 // return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 ||  item.fromDate.toString().indexOf(fromDate) > -1);
 			    });
 			  };
 			    
@@ -334,12 +265,28 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 				      grid = gridApi;
 				    },
 				    data:'filterData',
+				    columnDefs: [
+				                 {field:'sourceSystem', displayName:'Source'},    
+				                 {field:'fOReference',displayName:'FO Reference'},
+				                 {field:'ismaref',displayName:'ISMA Ref.'},
+				                 {field:'security',displayName:'Security'},
+				                 {field:'cParty',displayName:'CParty'},
+				                 {field:'quantity',displayName:'Quantity'},
+				                 {field:'price',displayName:'Price'},
+				                 {field:'currency',displayName:'CCy'},
+				                 {field:'purchaseSell',displayName:'P/S'},
+				                 {field:'type',displayName:'Type'},
+				                 {field:'status',displayName:'Status'},
+				                 {field:'fromDate',displayName:'Trade Date/Time',cellFilter: 'date:"MM-dd-yyyy"'},
+				                 {field:'late',displayName:'Late'}
+				                 
+				                 ],
+				  
 				    rowTemplate: rowTemplate()
 				       
 				}
 
 			  $scope.reloadRoute = function() {
-				  console.log("hsdjfhj");
 				  $scope.count=0;
 				  $scope.RadioValue=""; 
 				  $scope.FilterRadioValue="";
@@ -357,6 +304,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 		 
 	   
 }]);
+
 
 
 myApp.controller('InfoController', 
