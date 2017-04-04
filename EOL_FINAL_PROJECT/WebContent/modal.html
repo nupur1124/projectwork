@@ -14,22 +14,22 @@
 
 <tr>
 <td class="tablabel" style="text-align:left">Reference:</td>
-<td class="shrink" ><input name="ref" size="5" type="text" value={{selectedRow.FOReference}} /> &nbsp;<b>/</b></td>
+<td class="shrink" ><input name="ref" size="5" type="text" value={{selectedRow.tradeDetail.fOReference}} /> &nbsp;<b>/</b></td>
 <td ><input maxlength="2" name="field" size="2" type="text" value="00" /></td>
 <td  class="tablabel" >Leg:</td>
 <td class="shrink" ><input name="num" size="3" type="text" value="1" /></td>
 <td class="tablabel">ISMA:</td>
-<td class="shrink"><input name="num2" size="10" type="text" value={{selectedRow.ISMAref}} /></td>
+<td class="shrink"><input name="num2" size="10" type="text" value={{selectedRow.tradeDetail.ismaref}} /></td>
 <td class="shrink" ><input name="num3" size="2" type="text" value="1" /></td>
 <td  class="tablabel">Trade Date:</td>
-<td class="shrink"><input name="date" size="10" type="text" value={{selectedRow.FromDate}}/></td>
+<td class="shrink"><input name="date" size="10" type="text" value={{selectedRow.tradeDetail.fromDate}}/></td>
 <td class="shrink"><input name="time" size="10" type="text" value="15:00:09" /></td>
 </tr>
 <tr>
 <td class="tablabel">Source System:</td>
-<td class="shrink"><input name="ss" size="3/" type="text" value={{selectedRow.Source}} /></td>
+<td class="shrink"><input name="ss" size="3/" type="text" value={{selectedRow.tradeDetail.source}} /></td>
 <td  align=right class="tablabel">Trader:</td>
-<td class="expand" colspan=2 ><input name="trader" size="30" type="text" value="KAJI,EIGEN" /></td>
+<td class="expand" colspan=2 ><input name="trader" size="30" type="text" value={{selectedRow.tradeDetail.trader}} /></td>
 <td >&nbsp;</td>
 <td  colspan="3" class="tablabel">Entry Date:</td>
 <td class="shrink" ><input name="edate" size="10/" type="text" /></td>
@@ -37,11 +37,11 @@
 </tr>
 <tr>
 <td  class="tablabel"  style="text-align:left">Trade Status:</td>
-<td  class="shrink" ><input name="ts" size="3/" type="text" value={{selectedRow.Status}} /></td>
+<td  class="shrink" ><input name="ts" size="3/" type="text" value={{selectedRow.tradeDetail.status}} /></td>
 <td  class="expand"  colspan="2">Reported to TRAX. &nbsp;</td>
 <td colspan="5">&nbsp;</td>
 <td class="tablabel">Late:</td>
-<td  class="shrink"><input name="late" size="5" type="text" value="118" /></td>
+<td  class="shrink"><input name="late" size="5" type="text" value={{selectedRow.tradeDetail.late}} /></td>
 </tr>
 
 </table>
@@ -57,41 +57,41 @@
 <td  style="text-align:left" class="tablabel">Purchase/Sell:</td>
 <td  class="shrink"><input size="2/" type="text" value="S" /></td>
 <td class="tablabel" >Nominal:</td>
-<td   class="shrink" colspan="2"><input class="textalign" size="8/" type="text" value="5,000,000,000.00" /></td>
+<td   class="shrink" colspan="2"><input class="textalign" size="8/" type="text" value={{selectedRow.tradeDetail.nominal}} /></td>
 <td  align="right" class="tablabel">Price:</td>
-<td   class="shrink" colspan="2"><input size="10/" type="text" value="101.479" /></td>
+<td   class="shrink" colspan="2"><input size="10/" type="text" value={{selectedRow.tradeDetail.price}} /></td>
 <td colspan="2">&nbsp;</td>
 <td class="tablabel" >Currency:</td>
-<td  class="shrink"><input size="3/" type="text" value="JPY" /></td>
+<td  class="shrink"><input size="3/" type="text" value={{selectedRow.tradeDetail.currency}} /></td>
 
 </tr>
 <tr >
 <td style="text-align:left" class="tablabel">Subscriber:</td>
-<td ><input name="ss" size="7" type="text" value={{selectedRow.Subscriber}} LON" /></td>
+<td ><input name="ss" size="7" type="text" value={{selectedRow.tradeDetail.subscriber}} LON" /></td>
 <td colspan=5>&nbsp;</td>
 <td class="tablabel" colspan=3 align="right" class="tablabel">Gross Consideration:</td>
-<td colspan=2><input  class="textalign" size="25/" type="text" value="5,074,850,000.000" /></td>
+<td colspan=2><input  class="textalign" size="25/" type="text" value={{selectedRow.tradeDetail.grossConsideration}} /></td>
 </tr>
 <tr >
 <td style="text-align:left" class="tablabel">Entity Code:</td>
-<td ><input name="ts" size="4/" type="text" value="UNM" /></td>
+<td ><input name="ts" size="4/" type="text" value={{selectedRow.tradeDetail.entityCode}} /></td>
 <td class="tablabel">Book:</td>
-<td ><input size="6/" type="text" value="P3P2" /></td>
+<td ><input size="6/" type="text" value={{selectedRow.tradeDetail.book}} /></td>
 <td colspan=4>&nbsp;</td>
 <td colspan="2"  class="tablabel">Net Consideration:</td>
-<td colspan=2 ><input class="textalign" size="15/" type="text" value="5,087,880,000.000" /></td>
+<td colspan=2 ><input class="textalign" size="15/" type="text" value={{selectedRow.tradeDetail.netConsideration}} /></td>
 </tr>
 <tr >
 <td  style="text-align:left"  class="tablabel">Counterparty:</td>
-<td ><input size="6" type="text" value={{selectedRow.CParty}} /></td>
+<td ><input size="6" type="text" value={{selectedRow.tradeDetail.counterparty}} /></td>
 <td ><input size="7/" type="text" value="SBC LON" /></td>
 <td colspan="5">&nbsp;</td>
 <td colspan="3" class="tablabel">Bargain Conditions:</td>
-<td><input size="2/" type="text" value="RB" /></td>
+<td><input size="2/" type="text" value={{selectedRow.tradeDetail.bargainCondition}} /></td>
 </tr>
 <tr >
 <td style="text-align:left"  class="tablabel">Issue:</td>
-<td ><input size="10" type="text" value="JP000777898" /></td>
+<td ><input size="10" type="text" value={{selectedRow.tradeDetail.issue}}/></td>
 <td ><input size="4/" type="text" value="ISIN" /></td>
 <td  colspan="3">&nbsp;</td>
 <td class="tablabel">Hugo:</td>
@@ -99,7 +99,7 @@
 <td  class="tablabel">NTPA:</td>
 <td ><input size="6/" type="text" value="7463" /></td>
 <td  class="tablabel">Type:</td>
-<td ><input size="2" type="text" value={{selectedRow.Type}} /></td>
+<td ><input size="2" type="text" value={{selectedRow.tradeDetail.type1}} /></td>
 </tr>
 <tr  >
 <td style="text-align:left" >&nbsp;</td>
@@ -107,12 +107,12 @@
 </tr>
 <tr>
 <td  style="text-align:left" style="height: 4px; width: 92px;" class="tablabel">Repo Type:</td>
-<td ><input size="2" type="text" value="SB" /></td>
+<td ><input size="2" type="text" value={{selectedRow.tradeDetail.repoType}} /></td>
 <td  class="tablabel">Open/Close:</td>
-<td ><input size="2/" type="text" /></td>
+<td ><input size="2/" type="text" value={{selectedRow.tradeDetail.openclose}} /></td>
 <td  colspan="3">&nbsp;</td>
 <td colspan="4" class="tablabel">Repo Interest Rate:</td>
-<td ><input size="8/" type="text" value="10,9594" /></td>
+<td ><input size="8/" type="text" value={{selectedRow.tradeDetail.repoInterestRate}} /></td>
 </tr>
 
 </table>
@@ -128,29 +128,29 @@
 
 <tr >
 <td style="text-align:left"  class="tablabel">Settlement Date:</td>
-<td ><input name="ref" size="10/" type="text" value="12/07/2016" /></td>
+<td ><input name="ref" size="10/" type="text" value={{selectedRow.tradeDetail.settlementDate}} /></td>
 <td colspan=3>&nbsp;</td>
 <td  class="tablabel">Type:</td>
-<td ><input name="num" size="2/" type="text" value="DD" /></td>
+<td ><input name="num" size="2/" type="text" value={{selectedRow.tradeDetail.type}} /></td>
 <td colspan=2>&nbsp;</td>
 <td  class="tablabel">Rate:</td>
-<td colspan=2><input name="time" size="10" type="text" value="1,0000,00" /></td>
+<td colspan=2><input name="time" size="10" type="text" value={{selectedRow.tradeDetail.rate}} /></td>
 </tr>
 <tr>
 <td style="text-align:left" style="width: 198px; height: 27px;" class="tablabel">Our Depot:</td>
-<td ><input name="ss" size="2/" type="text" value="DM" /></td>
+<td ><input name="ss" size="2/" type="text" value={{selectedRow.tradeDetail.ourDepot}} /></td>
 <td colspan=3 ><input name="trader" size="15/" type="text" value="Other Domestic" /></td>
 <td colspan=2 class="tablabel">C'party Depot:</td>
 <td colspan=2>&nbsp;</td>
-<td ><input name="ss" size="2" type="text" value="DM" /></td>
+<td ><input name="ss" size="2" type="text" value={{selectedRow.tradeDetail.counterpartyDepot}} /></td>
 <td colspan=2><input name="trader" type="text" value="Other Domestic size" /></td>
 </tr>
 <tr >
 <td  style="text-align:left" class="tablabel">Settlement Currency:</td>
-<td ><input name="ts" size="3/" type="text" value={{selectedRow.Ccy}} /></td>
+<td ><input name="ts" size="3/" type="text" value={{selectedRow.tradeDetail.settllementCurrency}} /></td>
 <td  colspan="6">&nbsp;</td>
 <td  colspan=3 class="tablabel">Country of Settlement:</td>
-<td ><input name="late" size="3" type="text" value="JPN" /></td>
+<td ><input name="late" size="3" type="text" value={{selectedRow.tradeDetail.countryofSettlement}} /></td>
 </tr>
 
 </table>

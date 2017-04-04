@@ -75,8 +75,8 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
     success(function(data, status, headers, config) {
     	
     	console.log(status);	
-    	$scope.myData = data;   //set view model
-			console.log("adjs"+status);
+    	$scope.myData = data.Trade;   //set view model
+			console.log("status"+status);
     }).
     error(function(data, status, headers, config) {
 			$scope.myData= data || "Request failed";
