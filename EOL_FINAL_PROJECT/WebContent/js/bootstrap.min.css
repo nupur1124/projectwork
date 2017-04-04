@@ -753,7 +753,7 @@ pre code {
 }
 
 .row {
-	margin-left: -15px;
+	margin-left: -46px;
 	margin-right: -15px
 }
 
@@ -5221,7 +5221,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover,
 
 .panel-body {
 	padding: 10px;
-	margin:0px 70px 0px 65px;
+	margin:0px 70px 0px -39px;
 }
 
 .panel-heading {
