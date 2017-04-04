@@ -1,4 +1,4 @@
-var myApp=angular.module('app',['ui.bootstrap','ngTouch','ui.grid.pagination','ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize']);
+var myApp=angular.module('app',['ui.bootstrap','ngTouch','ui.grid.pagination','ui.grid.edit','ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize']);
   
 
 //for controlling tabs
@@ -327,5 +327,83 @@ myApp.controller('InfoController',
 
 
 myApp.controller('modalController', ['$scope', function($scope) {
+    
+}]);
+
+
+myApp.controller('maintencecontroller', ['$scope', function($scope) {
+	$scope.msg = {};
+	$scope.d=[{ Rule_ID:1000302,TraxAcronym:"TULLTLON",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"Y",EnteredBy:"traxbatch", EntryDate: "06/05/2016",UpdatedBy:"traxbatch",UpdatedDate:"07/09/2017"},
+	          { Rule_ID:1000301,TraxAcronym:"GFIGPLON",ClientHugo:"BLVR",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"EUR",Book:"ALL",B_S:"S",SettlementCurrency:"EUR",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"N",EnteredBy:"idavey2", EntryDate: "06/06/2016",UpdatedBy:"idavey2",UpdatedDate:"07/010/2017"},
+	          { Rule_ID:1000289,TraxAcronym:"MSLON",ClientHugo:"SALL",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"JPN",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"R",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/07/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/11/2017"},
+	          { Rule_ID:1000288,TraxAcronym:"JPSMLLON",ClientHugo:"DB02",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ITL",Book:"ALL",B_S:"S",SettlementCurrency:"USD",SettlementCountry:"JPN",RepoType:"ALL",Reportable:"N",EnteredBy:"ksmith8", EntryDate: "06/08/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/12/2017"},
+	          { Rule_ID:1000087,TraxAcronym:"CAB0TMIL",ClientHugo:"BAML",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"USD",Book:"ALL",B_S:"B",SettlementCurrency:"ITL",SettlementCountry:"ALL",RepoType:"RR",Reportable:"Y",EnteredBy:"idavey2", EntryDate: "06/09/2016",UpdatedBy:"idavey2",UpdatedDate:"07/13/2017"},
+	          { Rule_ID:1000284,TraxAcronym:"VDMBLON",ClientHugo:"BOAI",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"S",SettlementCurrency:"YEN",SettlementCountry:"JPN",RepoType:"R",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/10/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/14/2017"},
+	          { Rule_ID:500348,TraxAcronym:"SALUKLON",ClientHugo:"DEKI",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"EUR",Book:"ALL",B_S:"B",SettlementCurrency:"EUR",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"N",EnteredBy:"ksmith8", EntryDate: "06/11/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/15/2017"},
+	          { Rule_ID:500315,TraxAcronym:"GFIGPLON",ClientHugo:"SALL",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"YEN",Book:"ALL",B_S:"S",SettlementCurrency:"USD",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"Y",EnteredBy:"idavey2", EntryDate: "06/12/2016",UpdatedBy:"idavey2",UpdatedDate:"07/16/2017"},
+	          { Rule_ID:500314,TraxAcronym:"JPSMLLON",ClientHugo:"BLVR",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ITL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"N",EnteredBy:"traxbatch", EntryDate: "06/13/2016",UpdatedBy:"traxbatch",UpdatedDate:"07/17/2017"},
+	          { Rule_ID:500310,TraxAcronym:"CAB0TMIL",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"USD",Book:"ALL",B_S:"S",SettlementCurrency:"JPN",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/14/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/18/2017"},
+	          { Rule_ID:500321,TraxAcronym:"VDMBLON",ClientHugo:"DB02",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"JPN",SettlementCountry:"ALL",RepoType:"RR",Reportable:"N",EnteredBy:"idavey2", EntryDate: "06/15/2016",UpdatedBy:"idavey2",UpdatedDate:"07/19/2017"},]
+	
+	  $scope.filterOptions = {
+		    filterText: '',
+		    useExternalFilter: true
+		  };
+   
+   $scope.pagingOptions = {
+		   pageSizes: [2, 4, 6],
+		  pageSize: 10,
+	        totalServerItems: 0,
+	        currentPage: 1
+	    };
+	
+	
+	$scope.gridOptions = { 
+			paginationPageSizes:[5, 10, 15],
+			   paginationPageSize: 10,
+			   paginationOptions: $scope.pagingOptions,
+			   filterOptions: $scope.filteroptions ,
+			   enablePaging: true,
+			   enableFiltering: true,
+			   columnDefs:[{name: 'Rule_ID',displayName:'Rule ID',enableCellEdit: true,type: 'number'},
+			               {name: 'TraxAcronym',displayName:'Trax Acronym',enableCellEdit: true},
+			               {name: 'ClientHugo',displayName:'Client Hugo',enableCellEdit: true },
+			               {name: 'ProductType',displayName:'Product Type',enableCellEdit: true},
+			               {name: 'ProductHugo',displayName:'Product Hugo',enableCellEdit: true},
+			               {name: 'IssueCurrency',displayName:'Issue Ccy',enableCellEdit: true },
+			               {name: 'Book',displayName:'Book' ,enableCellEdit: true},
+			               {name: 'B_S',displayName:'B/S',enableCellEdit: true},
+			               {name: 'SettlementCurrency',displayName:'Settmt Ccy',enableCellEdit: true},
+			               {name: 'SettlementCountry',displayName:'Settmt Country',enableCellEdit: true},
+			               {name: 'RepoType',displayName:'Repo Type',enableCellEdit: true},
+			               {name: 'Reportable',displayName:'Reportable?',enableCellEdit: true ,type: 'boolean'},
+			               {name: 'EnteredBy',displayName:'Entered By',enableCellEdit: true },
+			               {name: 'EntryDate',displayName:'Entry Date' ,enableCellEdit: true,type: 'date'},
+			               {name: 'UpdatedBy',displayName:'Updated By',enableCellEdit: true},
+			               {name: 'UpdatedDate',displayName:'Updated Date',enableCellEdit: true ,type: 'date'},
+			               ],
+			               onRegisterApi: function(gridApi){
+			            	   $scope.gridApi = gridApi;
+			            	   $scope.gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
+							            $scope.msg.lastCellEdited = 'Edited Row_Id:' + rowEntity.Rule_ID + ' Modified_Column:' + colDef.name + ' NewValue:' + newValue + ' OldValue:' + oldValue ;
+							            $scope.$apply();
+							            });
+							          
+							    },
+							    
+			               data:'d',
+			         
+			            
+			               
+			
+			 
+		       
+		};
+	$scope.count=0;
+	
+	$scope.OnLoad=function(){
+		
+		$scope.count++;
+	}
     
 }]);

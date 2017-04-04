@@ -35,6 +35,7 @@
     <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
     <script src="http://ui-grid.info/release/ui-grid-unstable.js"></script>
+   
     <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid-unstable.css" type="text/css">
    
      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
@@ -70,20 +71,21 @@
 	             	 </div>
      			 </li>
      			 
-               <li  ng-class="{active:tab.isSet(2)}"><a  class="drop" href ng-click="tab.setTab(2)">Maintenance</a>
+               <li  ng-class="{active:tab.isSet(2)}"><a  class="drop" href ng-click="#">Maintenance</a>
                 <div class="dropdown_3columns align_left">
         <div class="col_1">
                 
                     <ul class="greybox" >
-					        <li  ng-class="{active:tab.isSet(0)}">
-					           <a  href ng-click="tab.setTab(0)">FI Trade Control</a>
+					        <li  ng-class="{active:tab.isSet(3)}">
+					           <a  href ng-click="tab.setTab(3)">FI Trade Control</a>
+					           
 					 	             	
 	             	        </li>
-					         <li  ng-class="{active:tab.isSet(0)}">
-					         <a href ng-click="tab.setTab(0)">Settlement Types </a>
+					         <li  ng-class="{active:tab.isSet(4)}">
+					         <a href ng-click="tab.setTab(4)">Settlement Types </a>
 					        </li>   
-					         <li  ng-class="{active:tab.isSet(0)}">
-					            <a href ng-click="tab.setTab(0)">Repo Types</a>
+					         <li  ng-class="{active:tab.isSet(5)}">
+					            <a href ng-click="tab.setTab(5)">Repo Types</a>
 					        </li> 
 	             	 </ul>
 	             	 </div>
@@ -93,16 +95,18 @@
              
              
 
-      <div ng-show="tab.isSet(0)">
-       		<h4></h4>
+      <div ng-show="tab.isSet(3)" >
+       
+        <div ng-include="'maint_ficontrol.html'"></div>
+       
       </div>
       
       <div ng-show="tab.isSet(1)" id="grid">
      	    <div ng-include="'monitors.html'"></div>
       </div>
       
-      <div ng-show="tab.isSet(2)">
-         	<h4></h4>
+      <div ng-show="tab.isSet(4)">
+        	
       </div>
     </nav>
          </section>
