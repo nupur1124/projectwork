@@ -83,10 +83,11 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 			console.log("Error with status:"+status);
     })
     ;
-	
-	
+	  
+      
 	 $scope.gridOptions = {}; 
 	 $scope.count=0;	
+	
 	//for selecting row in grid
 	$scope.myAppScopeProvider = {
 
@@ -132,10 +133,11 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 				    useExternalFilter: true
 				  };
 		 
-		   
+			
 			$scope.activateFilter = function() 
 			  {
-				$scope.count++; //to load grid on click
+				
+				$scope.count0++; //to load grid on click
 			    var subscriber = $scope.filterSubscriber || null;
 			    var todate = ($scope.filtertodate) ? $scope.filtertodate.toString() : null;
 			    var fromDate = ($scope.filterfromDate) ? $scope.filterfromDate.toString() : null;
