@@ -21,7 +21,7 @@
       
        
        <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
-        <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid-unstable.css" type="text/css">
+         <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid-unstable.css" type="text/css">
    
       
        <script src="./js/controller.js"></script>
@@ -34,7 +34,7 @@
         <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="http://ui-grid.info/release/ui-grid-unstable.js"></script>
+   <!-- <script src="http://ui-grid.info/release/ui-grid-unstable.js"></script>-->
    
     <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid-unstable.css" type="text/css">
    
@@ -106,7 +106,11 @@
       </div>
       
       <div ng-show="tab.isSet(4)">
-        	
+          <div ng-include="'maint_settlement.html'"></div>	
+      </div>
+      
+      <div ng-show="tab.isSet(5)">
+          <div ng-include="'maint_repo.html'"></div>	
       </div>
     </nav>
          </section>

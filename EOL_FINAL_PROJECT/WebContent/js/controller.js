@@ -483,9 +483,17 @@ myApp.controller('modalController', ['$scope', function($scope) {
 }]);
 
 
-myApp.controller('maintencecontroller', ['$scope', function($scope) {
+myApp.controller('maintence_ficontroller', ['$scope','$q','$interval', function($scope,$q,$interval) {
+	
+	
+
+	 
+	 
+	 
+	 
+	 
 	$scope.msg = {};
-	$scope.d=[{ Rule_ID:1000302,TraxAcronym:"TULLTLON",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"Y",EnteredBy:"traxbatch", EntryDate: "06/05/2016",UpdatedBy:"traxbatch",UpdatedDate:"07/09/2017"},
+	$scope.ficontrol=[{ Rule_ID:1000302,TraxAcronym:"TULLTLON",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"Y",EnteredBy:"traxbatch", EntryDate: '05/06/2016',UpdatedBy:"traxbatch",UpdatedDate:"07/09/2017"},
 	          { Rule_ID:1000301,TraxAcronym:"GFIGPLON",ClientHugo:"BLVR",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"EUR",Book:"ALL",B_S:"S",SettlementCurrency:"EUR",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"N",EnteredBy:"idavey2", EntryDate: "06/06/2016",UpdatedBy:"idavey2",UpdatedDate:"07/010/2017"},
 	          { Rule_ID:1000289,TraxAcronym:"MSLON",ClientHugo:"SALL",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"JPN",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"R",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/07/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/11/2017"},
 	          { Rule_ID:1000288,TraxAcronym:"JPSMLLON",ClientHugo:"DB02",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ITL",Book:"ALL",B_S:"S",SettlementCurrency:"USD",SettlementCountry:"JPN",RepoType:"ALL",Reportable:"N",EnteredBy:"ksmith8", EntryDate: "06/08/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/12/2017"},
@@ -515,6 +523,93 @@ myApp.controller('maintencecontroller', ['$scope', function($scope) {
 			   paginationPageSize: 10,
 			   paginationOptions: $scope.pagingOptions,
 			   filterOptions: $scope.filteroptions ,
+			   enableCellEditOnFocus: true,
+			   enablePaging: true,
+			   enableFiltering: true,
+			   
+			   columnDefs:[{name: 'Rule_ID',displayName:'Rule ID',enableCellEdit: true,type: 'number'},
+			               {name: 'TraxAcronym',displayName:'Trax Acronym',enableCellEdit: true},
+			               {name: 'ClientHugo',displayName:'Client Hugo',enableCellEdit: true },
+			               {name: 'ProductType',displayName:'Product Type',enableCellEdit: true},
+			               {name: 'ProductHugo',displayName:'Product Hugo',enableCellEdit: true},
+			               {name: 'IssueCurrency', displayName: 'Issue Currency',
+			            	      editableCellTemplate: 'ui-grid/dropdownEditor', 
+			            	      editDropdownValueLabel: 'IssueCurrency', 
+			            	      editDropdownOptionsArray: [
+			            	      { id:'EUR', IssueCurrency: 'EUR' },
+			            	      { id: 'USD', IssueCurrency: 'USD' },
+			            	      { id: 'YEN', IssueCurrency: 'YEN' },
+			            	      { id: 'JPN', IssueCurrency: 'JPN' },
+			            	      { id: 'ITL', IssueCurrency: 'ITL' },
+			            	      { id: 'ALL', IssueCurrency: 'ALL' }] },
+			                
+			               {name: 'Book',displayName:'Book' ,enableCellEdit: true},
+			               {name: 'B_S',displayName:'B/S',enableCellEdit: true,
+			            	      editableCellTemplate: 'ui-grid/dropdownEditor', 
+			            	      editDropdownValueLabel: 'B_S',
+			            	      editDropdownOptionsArray: [
+			            	                                { id:'B', B_S: 'B' },
+			            	                                { id: 'S', B_S: 'S' } ]},
+			            	                                
+			               {name: 'SettlementCurrency',displayName:'Settmt Ccy',enableCellEdit: true,
+			            	      editableCellTemplate: 'ui-grid/dropdownEditor', 
+			            	      editDropdownValueLabel: 'SettlementCurrency',
+			            	      editDropdownOptionsArray: [
+			            	                                 { id:'EUR', SettlementCurrency: 'EUR' },
+			            	                                 { id: 'USD', SettlementCurrency: 'USD' },
+			            	                                 { id: 'YEN', SettlementCurrency: 'YEN' },
+			            	                                 { id: 'JPN', SettlementCurrency: 'JPN' },
+			            	                                 { id: 'ITL', SettlementCurrency: 'ITL' },
+			            	                                 { id: 'ALL', SettlementCurrency: 'ALL' }] },
+			               {name: 'SettlementCountry',displayName:'Settmt Country',enableCellEdit: true,
+			            	   			            	   editableCellTemplate: 'ui-grid/dropdownEditor', 
+			            	   			            	   editDropdownValueLabel: 'SettlementCountry',
+			            	   			            	   editDropdownOptionsArray: [
+			            	   			            	                              { id:'ALL', SettlementCountry: 'ALL' },
+			            	   			            	                              { id: 'JPN', SettlementCountry: 'JPN' },
+			            	   			            	                              { id: 'ESP', SettlementCountry: 'ESP' }
+			            	   			            	                            ] },
+			               {name: 'RepoType',displayName:'Repo Type',enableCellEdit: true},
+			               {name: 'Reportable',displayName:'Reportable?',enableCellEdit: true },
+			               {name: 'EnteredBy',displayName:'Entered By',enableCellEdit: true },
+			               {name: 'EntryDate',displayName:'Entry Date' ,enableCellEdit: true,type: 'date',cellFilter: 'date:"MM/dd/yyyy"'},
+			               {name: 'UpdatedBy',displayName:'Updated By',enableCellEdit: true},
+			               {name: 'UpdatedDate',displayName:'Updated Date',enableCellEdit: true ,type: 'date',cellFilter: 'date:"MM/dd/yyyy"'},
+			               ],
+			              
+			            
+			               onRegisterApi: function(gridApi){
+			            	   $scope.gridApi = gridApi;
+			            	   $scope.gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
+							            $scope.msg.lastCellEdited = 'Edited Row_Id:' + rowEntity.Rule_ID + ' Modified_Column:' + colDef.name + ' NewValue:' + newValue + ' OldValue:' + oldValue ;
+							            $scope.$apply();
+							            });
+			            	  
+					               },
+							    
+							    
+			               data:'ficontrol',
+	
+			               };
+	 	
+	
+	
+	$scope.count=0;
+	
+	$scope.OnLoad=function(){
+		
+		$scope.count++;
+	}
+	
+	
+	
+	
+	$scope.gridOptions1 = { 
+			paginationPageSizes:[5, 10, 15],
+			   paginationPageSize: 10,
+			   paginationOptions: $scope.pagingOptions,
+			   filterOptions: $scope.filteroptions ,
+			   enableCellEditOnFocus: true,
 			   enablePaging: true,
 			   enableFiltering: true,
 			   columnDefs:[{name: 'Rule_ID',displayName:'Rule ID',enableCellEdit: true,type: 'number'},
@@ -522,40 +617,240 @@ myApp.controller('maintencecontroller', ['$scope', function($scope) {
 			               {name: 'ClientHugo',displayName:'Client Hugo',enableCellEdit: true },
 			               {name: 'ProductType',displayName:'Product Type',enableCellEdit: true},
 			               {name: 'ProductHugo',displayName:'Product Hugo',enableCellEdit: true},
-			               {name: 'IssueCurrency',displayName:'Issue Ccy',enableCellEdit: true },
+			               {name: 'IssueCurrency', displayName: 'Issue Currency',
+			            	      editableCellTemplate: 'ui-grid/dropdownEditor', 
+			            	      editDropdownValueLabel: 'IssueCurrency', 
+			            	      editDropdownOptionsArray: [
+			            	      { id:'EUR', IssueCurrency: 'EUR' },
+			            	      { id: 'USD', IssueCurrency: 'USD' },
+			            	      { id: 'YEN', IssueCurrency: 'YEN' },
+			            	      { id: 'JPN', IssueCurrency: 'JPN' },
+			            	      { id: 'ITL', IssueCurrency: 'ITL' },
+			            	      { id: 'ALL', IssueCurrency: 'ALL' }] },
+			                
 			               {name: 'Book',displayName:'Book' ,enableCellEdit: true},
-			               {name: 'B_S',displayName:'B/S',enableCellEdit: true},
-			               {name: 'SettlementCurrency',displayName:'Settmt Ccy',enableCellEdit: true},
-			               {name: 'SettlementCountry',displayName:'Settmt Country',enableCellEdit: true},
+			               {name: 'B_S',displayName:'B/S',enableCellEdit: true,
+			            	      editableCellTemplate: 'ui-grid/dropdownEditor', 
+			            	      editDropdownValueLabel: 'B_S',
+			            	      editDropdownOptionsArray: [
+			            	                                { id:'B', B_S: 'B' },
+			            	                                { id: 'S', B_S: 'S' } ]},
+			            	                                
+			               {name: 'SettlementCurrency',displayName:'Settmt Ccy',enableCellEdit: true,
+			            	      editableCellTemplate: 'ui-grid/dropdownEditor', 
+			            	      editDropdownValueLabel: 'SettlementCurrency',
+			            	      editDropdownOptionsArray: [
+			            	                                 { id:'EUR', SettlementCurrency: 'EUR' },
+			            	                                 { id: 'USD', SettlementCurrency: 'USD' },
+			            	                                 { id: 'YEN', SettlementCurrency: 'YEN' },
+			            	                                 { id: 'JPN', SettlementCurrency: 'JPN' },
+			            	                                 { id: 'ITL', SettlementCurrency: 'ITL' },
+			            	                                 { id: 'ALL', SettlementCurrency: 'ALL' }] },
+			               {name: 'SettlementCountry',displayName:'Settmt Country',enableCellEdit: true,
+			            	   			            	   editableCellTemplate: 'ui-grid/dropdownEditor', 
+			            	   			            	   editDropdownValueLabel: 'SettlementCountry',
+			            	   			            	   editDropdownOptionsArray: [
+			            	   			            	                              { id:'ALL', SettlementCountry: 'ALL' },
+			            	   			            	                              { id: 'JPN', SettlementCountry: 'JPN' },
+			            	   			            	                              { id: 'ESP', SettlementCountry: 'ESP' }
+			            	   			            	                            ] },
 			               {name: 'RepoType',displayName:'Repo Type',enableCellEdit: true},
-			               {name: 'Reportable',displayName:'Reportable?',enableCellEdit: true ,type: 'boolean'},
+			               {name: 'Reportable',displayName:'Reportable?',enableCellEdit: true },
 			               {name: 'EnteredBy',displayName:'Entered By',enableCellEdit: true },
-			               {name: 'EntryDate',displayName:'Entry Date' ,enableCellEdit: true},
+			               {name: 'EntryDate',displayName:'Entry Date' ,enableCellEdit: true,type: 'date',cellFilter: 'date:"MM/dd/yyyy"'},
 			               {name: 'UpdatedBy',displayName:'Updated By',enableCellEdit: true},
-			               {name: 'UpdatedDate',displayName:'Updated Date',enableCellEdit: true ,type: 'date'},
+			               {name: 'UpdatedDate',displayName:'Updated Date',enableCellEdit: true ,type: 'date',cellFilter: 'date:"MM/dd/yyyy"'},
 			               ],
+			              
+			            
 			               onRegisterApi: function(gridApi){
 			            	   $scope.gridApi = gridApi;
 			            	   $scope.gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
 							            $scope.msg.lastCellEdited = 'Edited Row_Id:' + rowEntity.Rule_ID + ' Modified_Column:' + colDef.name + ' NewValue:' + newValue + ' OldValue:' + oldValue ;
 							            $scope.$apply();
 							            });
-							          
-							    },
+			            	  
 							    
-			               data:'d',
-			         
-			            
-			               
-			
-			 
-		       
-		};
-	$scope.count=0;
-	
-	$scope.OnLoad=function(){
-		
-		$scope.count++;
-	}
+			               },
+					               data:'ficontrol',
+
+			               };
+
     
+}]);
+
+
+
+
+myApp.controller('maintence_settlcontroller', ['$scope','$q','$interval',function($scope,$interval){
+	
+	$scope.settl=[{CSFBType:"CC",CpartyClearer:"CL",CSFBClearer:"CL",Added:"03/16/2017",By:"traxbatch"},
+	              {CSFBType:"CY",CpartyClearer:"OM",CSFBClearer:"OT",Added:"03/18/2017",By:"traxbatc"},
+	              {CSFBType:"DD",CpartyClearer:"ER",CSFBClearer:"OM",Added:"03/23/2017",By:"dbo"},
+	              {CSFBType:"EC",CpartyClearer:"OT",CSFBClearer:"CL",Added:"03/25/2017",By:"traxbatch"},
+	              {CSFBType:"ED",CpartyClearer:"CL",CSFBClearer:"ER",Added:"03/27/2017",By:"dbo"},
+	              {CSFBType:"CC",CpartyClearer:"CL",CSFBClearer:"CL",Added:"04/16/2017",By:"traxbatch"},
+	              {CSFBType:"CY",CpartyClearer:"OM",CSFBClearer:"OT",Added:"04/18/2017",By:"traxbatc"},
+	              {CSFBType:"DD",CpartyClearer:"ER",CSFBClearer:"OM",Added:"04/23/2017",By:"dbo"},
+	              {CSFBType:"EC",CpartyClearer:"OT",CSFBClearer:"CL",Added:"04/25/2017",By:"traxbatch"},
+	              {CSFBType:"ED",CpartyClearer:"CL",CSFBClearer:"ER",Added:"04/27/2017",By:"dbo"},
+	              {CSFBType:"CC",CpartyClearer:"CL",CSFBClearer:"CL",Added:"05/16/2017",By:"traxbatch"},
+	              {CSFBType:"CY",CpartyClearer:"OM",CSFBClearer:"OT",Added:"05/18/2017",By:"traxbatc"},
+	              {CSFBType:"DD",CpartyClearer:"ER",CSFBClearer:"OM",Added:"05/23/2017",By:"dbo"},
+	              {CSFBType:"EC",CpartyClearer:"OT",CSFBClearer:"CL",Added:"05/25/2017",By:"traxbatch"},
+	              {CSFBType:"ED",CpartyClearer:"CL",CSFBClearer:"ER",Added:"05/27/2017",By:"dbo"},
+	              {CSFBType:"CC",CpartyClearer:"CL",CSFBClearer:"CL",Added:"06/16/2017",By:"traxbatch"},
+	              {CSFBType:"CY",CpartyClearer:"OM",CSFBClearer:"OT",Added:"06/18/2017",By:"traxbatc"},
+	              {CSFBType:"DD",CpartyClearer:"ER",CSFBClearer:"OM",Added:"06/23/2017",By:"dbo"},
+	              {CSFBType:"EC",CpartyClearer:"OT",CSFBClearer:"CL",Added:"06/25/2017",By:"traxbatch"},
+	              {CSFBType:"ED",CpartyClearer:"CL",CSFBClearer:"ER",Added:"06/27/2017",By:"dbo"}
+	];
+	
+	
+	 $scope.filterOptions = {
+			    filterText: '',
+			    useExternalFilter: true
+			  };
+	   
+	   $scope.pagingOptions = {
+			   pageSizes: [5, 10, 15],
+			  pageSize: 10,
+		        totalServerItems: 0,
+		        currentPage: 1
+		    };
+	
+	
+	
+	
+	
+	
+	$scope.gridOptions=
+	{ paginationPageSizes:[5, 10, 15],
+			   paginationPageSize: 10,
+			   paginationOptions: $scope.pagingOptions,
+			   filterOptions: $scope.filteroptions,
+			   enableCellEditOnFocus: true,
+			   enablePaging: true,
+			   enableFiltering: true,
+		        showFooter: true,
+		        enableSorting: true
+		       ,
+		       columnDefs:[{name:'CSFBType',displayName:'CSFB Type', enableCellEdit: true,
+		        	editableCellTemplate: 'ui-grid/dropdownEditor', 
+	            	   editDropdownValueLabel: 'CSFBType',
+		            	   editDropdownOptionsArray: [
+		            	                              { id:'CC', CSFBType: 'CC' },
+		            	                              { id: 'ED', CSFBType: 'ED' },
+		            	                              { id: 'CY', CSFBType: 'CY' },
+		            	                              { id: 'EC', CSFBType: 'EC' }
+		            	                            ]},
+		                    {name:'CpartyClearer',displayName:'Cparty Clearer',enableCellEdit: true ,
+		            	           editableCellTemplate: 'ui-grid/dropdownEditor', 
+	   			            	   editDropdownValueLabel: 'CpartyClearer',
+	   			            	   editDropdownOptionsArray: [
+	   			            	                              { id:'CL', CpartyClearer: 'CL' },
+	   			            	                              { id: 'OM', CpartyClearer: 'OM' },
+	   			            	                              { id: 'ER', CpartyClearer: 'ER' },
+	   			            	                              { id: 'OT', CpartyClearer: 'OT' }
+	   			            	                            ]},
+		                    {name:'CSFBClearer',displayName:'CSFB Clearer', enableCellEdit: true,
+	   			            	   editableCellTemplate: 'ui-grid/dropdownEditor', 
+	   			            	   editDropdownValueLabel: 'CSFBClearer',
+	   			            	   editDropdownOptionsArray: [
+				            	   			            	  { id:'CL', CSFBClearer: 'CL' },
+	   			            	                              { id: 'OM', CSFBClearer: 'OM' },
+	   			            	                              { id: 'ER', CSFBClearer: 'ER' },
+	   			            	                              { id: 'OT', CSFBClearer: 'OT' }
+				            	   			            	                            ]},
+		                    {name:'Added',displayName:'Added',type:'date',enableCellEdit: true},
+		                    {name:'By',displayName:'By',enableCellEdit: true}],
+		                    data:'settl',
+			onRegisterApi: function(gridApi){
+         	   $scope.gridApi = gridApi;}}
+	
+	
+	
+	 
+	
+	
+	
+}]);
+
+
+
+
+
+myApp.controller('maintence_repocontroller', ['$scope',function($scope){
+	
+	$scope.repo=[{Type:"BS",Trax:"True",BargainCond:"RB",Added:"03/16/2017",By:"dbo"},
+	             {Type:"BVC",Trax:"False",BargainCond:"",Added:"03/17/2017",By:"dbo"},
+	             {Type:"FBB",Trax:"False",BargainCond:"",Added:"03/18/2017",By:"dbo"},
+	             {Type:"FBL",Trax:"False",BargainCond:"",Added:"03/19/2017",By:"dbo"},
+	             {Type:"FF",Trax:"True",BargainCond:"",Added:"03/20/2017",By:"dbo"},
+	             {Type:"FV",Trax:"True",BargainCond:"",Added:"03/21/2017",By:"dbo"},
+	             {Type:"GR",Trax:"True",BargainCond:"RC",Added:"03/22/2017",By:"dbo"},
+	             {Type:"GRR",Trax:"True",BargainCond:"RC",Added:"03/23/2017",By:"dbo"},
+	             {Type:"LR",Trax:"False",BargainCond:"",Added:"03/24/2017",By:"dbo"},
+	             {Type:"LVC",Trax:"False",BargainCond:"",Added:"04/16/2017",By:"dbo"},
+	             {Type:"PG",Trax:"False",BargainCond:"",Added:"04/16/2017",By:"dbo"},
+	             {Type:"PL",Trax:"True",BargainCond:"RP",Added:"04/16/2017",By:"dbo"},
+	             {Type:"PR",Trax:"False",BargainCond:"",Added:"04/16/2017",By:"dbo"},
+	             {Type:"PV",Trax:"True",BargainCond:"RP",Added:"05/16/2017",By:"dbo"},
+	             {Type:"RR",Trax:"True",BargainCond:"RC",Added:"06/16/2017",By:"dbo"},
+	             {Type:"SB",Trax:"True",BargainCond:"RB",Added:"07/16/2017",By:"dbo"},
+	             {Type:"TP",Trax:"False",BargainCond:"RC",Added:"08/16/2017",By:"dbo"},
+	            
+	             
+	];
+	
+	
+	 $scope.filterOptions = {
+			    filterText: '',
+			    useExternalFilter: true
+			  };
+	   
+	   $scope.pagingOptions = {
+			   pageSizes: [5, 10, 15],
+			  pageSize: 10,
+		        totalServerItems: 0,
+		        currentPage: 1
+		    };
+	
+	
+	
+	
+	
+	
+	$scope.gridOptions=
+	{ paginationPageSizes:[5, 10, 15],
+			   paginationPageSize: 10,
+			   paginationOptions: $scope.pagingOptions,
+			   filterOptions: $scope.filteroptions,
+			   enableCellEditOnFocus: true,
+			   enablePaging: true,
+			   enableFiltering: true,
+		        showFooter: true,
+		        enableSorting: true
+		       ,
+		       columnDefs:[{name:'Type',displayName:'Type', enableCellEdit: true},
+		        	
+		                    {name:'Trax',displayName:'Trax',enableCellEdit: true ,type:'boolean'},
+		            	          
+		                    {name:'BargainCond',displayName:'Bargain Cond.', enableCellEdit: true},
+	   			            	
+		                    {name:'Added',displayName:'Added',type:'date',enableCellEdit: true},
+		                    {name:'By',displayName:'By',enableCellEdit: true}],
+		                    data:'repo',
+			onRegisterApi: function(gridApi){
+         	   $scope.gridApi = gridApi;}}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }]);

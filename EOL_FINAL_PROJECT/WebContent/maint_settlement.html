@@ -49,54 +49,16 @@
 <body>
 
 
-<div ng-controller="maintence_ficontroller">
+<div ng-controller="maintence_settlcontroller">
 
-
-<section  class="panel-body">
-        <ul class="nav nav-tabs" ng-init="activeTab = 'Suprresion to Non-Matchable/Non-Reportable'">
-            <li ng-class="{ active: activeTab === 'Suprresion to Non-Matchable/Non-Reportable' }">
-                <a ng-click="activeTab = 'Suprresion to Non-Matchable/Non-Reportable';onload()" href="#"> Suprresion to Non-Matchable/Non-Reportable</a>
-            </li>
-            <li ng-class="{ active: activeTab === 'Force to Matchable' }">
-                <a   ng-click="activeTab = 'Force to Matchable';OnLoad()" href="#">Force to Matchable</a>
-            </li>
-           
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane" ng-class="{ active: activeTab === 'Force to Matchable' }"> 
-          <strong><h3>Force to Matchable</h3></strong>
-            <div class="row">
-             
-					
-			<div class="col-xs-6 col-md-4">
-		
-			
 			 
 				<div    ui-grid="gridOptions" ui-grid-edit class="grid"  ui-grid-pagination class="myGrid" 
 						ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit ui-grid-row-edit ui-grid-cellNav> </div> 
 				</div>
 				
-				</div>
-                    </div>
-             <div class="tab-pane" ng-class="{ active: activeTab === 'Suprresion to Non-Matchable/Non-Reportable' }">
-              <div class="row">
-             
-				 <strong><h3>Suprresion to Non-Matchable/Non-Reportable</h3></strong>	
-			<div class="col-xs-6 col-md-4">
-		
 			
-			 
-				<div    ui-grid="gridOptions1" ui-grid-edit class="grid"  ui-grid-pagination class="myGrid1" 
-						ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit ui-grid-row-edit ui-grid-cellNav> </div> 
-				</div>
-				
-				</div>
-           
-           
-            </div>
-            </div>
-             </section>
-		</div>
+                   
+       
 </body>
  
 </html>
