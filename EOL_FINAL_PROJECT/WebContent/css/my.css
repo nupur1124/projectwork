@@ -242,4 +242,11 @@ float: left;
 	
   background-color:lightgray;
 }
+#collapse li .drop {
+	padding-right:25px;
+	background:url("../images/img/drop.gif") no-repeat right 16px;
+}
+
+#collapse li:hover .drop {
+	background:url("../images/img/drop.png") no-repeat right 14px;
 }

@@ -78,7 +78,7 @@ body, ul, li {
 }
 #menu li .drop {
 	padding-right:21px;
-	background:url("../images/img/drop.png") no-repeat right 8px;
+	background:url("../images/img/drop.gif") no-repeat right 8px;
 }
 #menu li:hover .drop {
 	background:url("../images/img/drop.png") no-repeat right 7px;
