@@ -3930,6 +3930,23 @@ textarea.input-group-sm>.form-control, textarea.input-group-sm>.input-group-addo
 	}
 }
 
+.tab-content>.tab-pane_M {
+	display: none;margin: 34px 0px 0px 0px;
+}
+
+.tab-content>.active_M {
+	display: block;
+	margin: 34px 0px 0px 0px;
+}
+.tab-content>.active_Screen {
+	display: block;
+	margin: 41px 0px 0px -19px;
+}
+.tab-content>.active_Screen2 {
+	display: block;
+	margin: 23px 0px 0px -41px;
+}
+
 .tab-content>.tab-pane {
 	display: none;margin: 5px 12px 3px -1px;
 }
