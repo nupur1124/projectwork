@@ -39,7 +39,8 @@
     <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
     <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
     <script src="http://ui-grid.info/release/ui-grid-unstable.js"></script>
-<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
 <meta charset=utf-8 />
 <title></title>
 </head>
@@ -49,19 +50,19 @@
 <div ng-controller="CompanyCtrl">
 
 
-<section  class="panel-body">
+<section  class="panel-body" >
         <ul class="nav nav-tabs" ng-init="activeTab = 'By Date'">
             <li ng-class="{ active: activeTab === 'By Date' }">
-                <a ng-click="activeTab = 'By Date';reloadRoute()" href="#">Search By Date</a>
+                <a ng-click="activeTab = 'By Date';ShowHide1()" href="#">Search By Date</a>
             </li>
             <li ng-class="{ active: activeTab === 'By Reference No' }">
-                <a   ng-click="activeTab = 'By Reference No';reloadRoute()" href="#">Search By Ref No</a>
+                <a   ng-click="activeTab = 'By Reference No';ShowHide2()" href="#">Search By Ref No</a>
             </li>
            
         </ul>
-
-        <div class="tab-content">
-            <div class="tab-pane" ng-class="{ active: activeTab === 'By Date' }">
+<!-- tab1 starts -->
+        <div class="tab-content" >
+            <div class="tab-pane1" ng-class="{ active: activeTab === 'By Date' }"  ng-hide="IsHiddentab1"  >
               <div class="form-search" role="search">
  <form id="form_search" novalidate>
  <table width="75%">
@@ -92,17 +93,35 @@
   </tr>
 </table>
 <div class="button">
-  <button class="btn btn-primary" type="submit" ng-click="activateFilter()" >Search</button> &nbsp;
+  <button class="btn btn-primary" type="submit" ng-click="ShowGrid1();activateFilter()" >Search</button> &nbsp;
   <button  class="btn btn-primary" type="reset" ng-click="reloadRoute()">CANCEL</button>
   
 </div>
 </form>
 </div>
 
+  
 </div>
+<br>
+ <div   class="row"  ng-hide="IsHiddenGrid1">
+					
+			<div class="col-xs-6 col-md-4">
+				<div   ng-if="count!=0 && gridOptions.data.length > 0 " class="grid"  ui-grid="gridOptions" ui-grid-pagination 
+						ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit> </div> 
+				</div>
+
+				</div>
+ 
+
+ </div>
+ <!-- tab1 ends -->
+ 
+ 
+ <!-- tab2 starts -->
+    <div class="tab-content" >
  
            
-            <div class="tab-pane" ng-class="{ active: activeTab === 'By Reference No' }">  
+            <div class="tab-pane" ng-class="{ active: activeTab === 'By Reference No' }" ng-hide="IsHiddentab2" >  
             
             <div class="form-search" role="search">
  <form id="form_search" novalidate>
@@ -124,32 +143,32 @@
   
 
 <div class="button">
-  <button class="btn btn-primary" type="submit" ng-click="activateFilter()">Search</button> &nbsp;
+  <button class="btn btn-primary" type="submit" ng-click="ShowGrid2();activateFilter1()">Search</button> &nbsp;
   
     <button  class="btn btn-primary" type="reset" ng-click="reloadRoute()">CANCEL</button>
   
 </div>
-            </div>
+           
             
            </form>
            </div>
-           </div>
-    </section>
+   </div>
+<br>
 
 
-
-	<div class="row">
+	<div class="row" ng-hide="IsHiddenGrid2">
 					
 			<div class="col-xs-6 col-md-4">
-				<div   ng-if="count!=0 && gridOptions.data.length > 0 " class="grid"  ui-grid="gridOptions" ui-grid-pagination 
+				<div   ng-if="count1!=0 && gridOptions.data.length > 0 " class="grid"  ui-grid="gridOptions" ui-grid-pagination 
 						ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit> </div> 
 				</div>
 
 				</div>
 				   
 			
+           </div>
 		
-	
+	 </section>
 
 		
 		</div>

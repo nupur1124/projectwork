@@ -83,11 +83,54 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 			console.log("Error with status:"+status);
     })
     ;
-	  
+	$scope.t1=0;
+	$scope.t2=0;
+	$scope.IsHiddentab1 =false;
+	$scope.IsHiddenGrid1 =true;
+      
+	$scope.ShowHide1 = function () {
+    	          //If DIV is hidden it will be visible and vice versa.
+          $scope.IsHiddentab1 = $scope.IsHiddentab1 ? false : true;  
+          $scope.IsHiddenGrid1 =false;
+          $scope.IsHiddenGrid2 =true;
+    	  $scope.IsHiddentab2 = true;
+          console.log(  $scope.IsHiddenGrid1);
+      }
+      
+      $scope.ShowGrid1 = function () {
+    	  $scope.IsHiddentab1 = true;  
+    	  $scope.IsHiddentab2 = true;
+    	  if( $scope.IsHiddenGrid1==false)
+    	  $scope.IsHiddenGrid1 =true;
+    	  $scope.IsHiddenGrid1 = $scope.IsHiddenGrid1 ? false : true; 
+    	  console.log( "shdfj" +$scope.IsHiddenGrid1);
+      }
+      
+      
+      $scope.IsHiddentab2 =true;
+  	$scope.IsHiddenGrid2 =true;
+  	
+      $scope.ShowHide2 = function () {
+    	
+          $scope.IsHiddentab2 = $scope.IsHiddentab2 ? false : true;
+          $scope.IsHiddentab1 =true;
+          $scope.IsHiddenGrid2 =false;
+    	$scope.IsHiddenGrid1 =true;
+          console.log( "dnfjkna"+ $scope.IsHiddenSubmit);
+      }
+      
+      $scope.ShowGrid2 = function () {
+    	  $scope.IsHiddentab1 = true;  
+    	   $scope.IsHiddentab2 =true;
+    	   if( $scope.IsHiddenGrid2==false)
+    	    	  $scope.IsHiddenGrid2 =true;
+    	  $scope.IsHiddenGrid2 = $scope.IsHiddenGrid2 ? false : true; 
+      }
+      
       
 	 $scope.gridOptions = {}; 
 	 $scope.count=0;	
-	
+	 $scope.count1=0;
 	//for selecting row in grid
 	$scope.myAppScopeProvider = {
 
@@ -133,11 +176,117 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 				    useExternalFilter: true
 				  };
 		 
-			
 			$scope.activateFilter = function() 
 			  {
+				$scope.count++; 
+				 //to load grid on click
+			    var subscriber = $scope.filterSubscriber || null;
+			    var todate = ($scope.filtertodate) ? $scope.filtertodate.toString() : null;
+			    var fromDate = ($scope.filterfromDate) ? $scope.filterfromDate.toString() : null;
+			    var repoflag=$scope.filterRepo || null;
+			    var status=$scope.filterError || null;
+			  // var ISMAref=$scope.filterISMAref ||null;
+			    var fOReference=$scope.RadioValue ||null;
+			    var Referenceno=$scope.FilterRadioValue ||null;
+			    
+			  
+			   // var fOReferenceno=$scope.filterfOReferenceno ||null;
+			  //  if (!subscriber && !todate) subscriber='';
+			   // console.log("shubham"+Referenceno);
+			    //console.log(+repoflag);
+			    $scope.filterData = angular.copy($scope.myData, []);
+			    $scope.filterData = $scope.filterData.filter( function(item) {
+			    	
+			    	
+			    	 if(Referenceno=="FOReference"){
+					    	
+					    return (item.fOReference.toString().indexOf(fOReference) > -1 );
+					    	
+					     }
+			    	 else if(Referenceno=="ISMAref"){
+			    		 return (item.ismaref.toString().indexOf(ismaref) > -1 );
+			    		 
+			    	 }
+			   
+		    		    	
+			   else if(fromDate!=null )
+	    		{
+		    		if(todate==null && subscriber==null)
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 );
+		    		else if(todate!=null && subscriber==null)
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.todate.toString().indexOf(todate) > -1);
+		    		else if(todate==null && subscriber!=null)
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.subscriber.indexOf(subscriber)>-1);
+		    		else if(repoflag=="YES")
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.repoflag.indexOf(repoflag)>-1);
+		    		else if(status=="ERR")
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.status.indexOf(status)>-1);
+		    		else
+		    			return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.fromDate.toString().indexOf(fromDate) > -1);
+	    		
+	    		}
+					    	
+			    	 else  if(todate!=null)
+	    		{
+		    		if(fromDate==null && subscriber==null)
+		    			return (item.todate.toString().indexOf(todate) > -1 );
+		    		else if(fromDate!=null && subscriber==null)
+		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.todate.toString().indexOf(todate) > -1);
+		    		else if(fromDate==null && subscriber!=null)
+		    			return (item.todate.toString().indexOf(todate) > -1 && item.subscriber.indexOf(subscriber)>-1);
+		    		else if(repoflag=="YES")
+		    			return (item.todate.toString().indexOf(todate) > -1 && item.repoflag.indexOf(repoflag)>-1);
+		    		else if(status=="ERR")
+		    			return (item.todate.toString().indexOf(todate) > -1 && item.status.indexOf(status)>-1);
+		    		
+		    		else
+		    			return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.todate.toString().indexOf(fromDate) > -1);
+	    		
+	    		}
+					    	
+			    	 else if((todate==null || fromDate==null)&& subscriber!=null)
+	    		{
+			    		 console.log("dhfjsh");
+				  if(repoflag=="YES" && status=="ERR")
+					 return(item.repoflag.toString().indexOf(repoflag) > -1 && item.status.toString().indexOf(status) > -1 && item.subscriber.indexOf(subscriber)>-1)				 
+		    			
+				 else if(repoflag=="YES")
+		    			return (item.subscriber.toString().indexOf(subscriber) > -1 && item.repoflag.indexOf(repoflag)>-1);
+				 else if(status=="ERR")
+					 return (item.subscriber.toString().indexOf(subscriber) > -1 && item.status.indexOf(status)>-1);
+				 else
+				 return (item.subscriber.indexOf(subscriber)>-1);
+	    		}
+			 
+			 
+			    	 else if(repoflag=="YES" && status=="ERR")
+	    		{
+	    	
+	    		return (item.repoflag.toString().indexOf(repoflag) > -1 && item.status.toString().indexOf(status) > -1 );
+	    		}
+	    	
+			    	 else if(repoflag=="YES")
+		    	{
+		    	return (item.repoflag.toString().indexOf(repoflag) > -1 );
+		    	}
+		    	
+			    	 else if(status=="ERR")
+	    	{
+	    	return (item.status.toString().indexOf(status) > -1 );
+	    	}
+		    	 else
+		    		{
+		    		return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.fromDate.toString().indexOf(fromDate) > -1 && item.repoflag.indexOf(repoflag)>-1 && item.status.indexOf(status)>-1);
+		    		}
+		    	 // return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 ||  item.fromDate.toString().indexOf(fromDate) > -1);
+			    });
+			  };
+			    
+		   
+			$scope.activateFilter1 = function() 
+			  {
 				
-				$scope.count0++; //to load grid on click
+				$scope.count1++; //to load grid on click
 			    var subscriber = $scope.filterSubscriber || null;
 			    var todate = ($scope.filtertodate) ? $scope.filtertodate.toString() : null;
 			    var fromDate = ($scope.filterfromDate) ? $scope.filterfromDate.toString() : null;
@@ -290,6 +439,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 
 			  $scope.reloadRoute = function() {
 				  $scope.count=0;
+				  $scope.count1=1;
 				  $scope.RadioValue=""; 
 				  $scope.FilterRadioValue="";
 				  $scope.filterSubscriber="";
@@ -380,7 +530,7 @@ myApp.controller('maintencecontroller', ['$scope', function($scope) {
 			               {name: 'RepoType',displayName:'Repo Type',enableCellEdit: true},
 			               {name: 'Reportable',displayName:'Reportable?',enableCellEdit: true ,type: 'boolean'},
 			               {name: 'EnteredBy',displayName:'Entered By',enableCellEdit: true },
-			               {name: 'EntryDate',displayName:'Entry Date' ,enableCellEdit: true,type: 'date'},
+			               {name: 'EntryDate',displayName:'Entry Date' ,enableCellEdit: true},
 			               {name: 'UpdatedBy',displayName:'Updated By',enableCellEdit: true},
 			               {name: 'UpdatedDate',displayName:'Updated Date',enableCellEdit: true ,type: 'date'},
 			               ],
