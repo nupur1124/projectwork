@@ -178,221 +178,87 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 		 
 			$scope.activateFilter = function() 
 			  {
-				$scope.count++; 
-				 //to load grid on click
-			    var subscriber = $scope.filterSubscriber || null;
-			    var todate = ($scope.filtertodate) ? $scope.filtertodate.toString() : null;
-			    var fromDate = ($scope.filterfromDate) ? $scope.filterfromDate.toString() : null;
-			    var repoflag=$scope.filterRepo || null;
-			    var status=$scope.filterError || null;
-			  // var ISMAref=$scope.filterISMAref ||null;
-			    var fOReference=$scope.RadioValue ||null;
-			    var Referenceno=$scope.FilterRadioValue ||null;
-			    
-			  
-			   // var fOReferenceno=$scope.filterfOReferenceno ||null;
-			  //  if (!subscriber && !todate) subscriber='';
-			   // console.log("shubham"+Referenceno);
-			    //console.log(+repoflag);
-			    $scope.filterData = angular.copy($scope.myData, []);
-			    $scope.filterData = $scope.filterData.filter( function(item) {
-			    	
-			    	
-			    	 if(Referenceno=="FOReference"){
-					    	
-					    return (item.fOReference.toString().indexOf(fOReference) > -1 );
-					    	
-					     }
-			    	 else if(Referenceno=="ISMAref"){
-			    		 return (item.ismaref.toString().indexOf(ismaref) > -1 );
-			    		 
-			    	 }
-			   
-		    		    	
-			   else if(fromDate!=null )
-	    		{
-		    		if(todate==null && subscriber==null)
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 );
-		    		else if(todate!=null && subscriber==null)
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.todate.toString().indexOf(todate) > -1);
-		    		else if(todate==null && subscriber!=null)
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.subscriber.indexOf(subscriber)>-1);
-		    		else if(repoflag=="YES")
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.repoflag.indexOf(repoflag)>-1);
-		    		else if(status=="ERR")
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.status.indexOf(status)>-1);
-		    		else
-		    			return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.fromDate.toString().indexOf(fromDate) > -1);
-	    		
-	    		}
-					    	
-			    	 else  if(todate!=null)
-	    		{
-		    		if(fromDate==null && subscriber==null)
-		    			return (item.todate.toString().indexOf(todate) > -1 );
-		    		else if(fromDate!=null && subscriber==null)
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.todate.toString().indexOf(todate) > -1);
-		    		else if(fromDate==null && subscriber!=null)
-		    			return (item.todate.toString().indexOf(todate) > -1 && item.subscriber.indexOf(subscriber)>-1);
-		    		else if(repoflag=="YES")
-		    			return (item.todate.toString().indexOf(todate) > -1 && item.repoflag.indexOf(repoflag)>-1);
-		    		else if(status=="ERR")
-		    			return (item.todate.toString().indexOf(todate) > -1 && item.status.indexOf(status)>-1);
-		    		
-		    		else
-		    			return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.todate.toString().indexOf(fromDate) > -1);
-	    		
-	    		}
-					    	
-			    	 else if((todate==null || fromDate==null)&& subscriber!=null)
-	    		{
-			    		 console.log("dhfjsh");
-				  if(repoflag=="YES" && status=="ERR")
-					 return(item.repoflag.toString().indexOf(repoflag) > -1 && item.status.toString().indexOf(status) > -1 && item.subscriber.indexOf(subscriber)>-1)				 
-		    			
-				 else if(repoflag=="YES")
-		    			return (item.subscriber.toString().indexOf(subscriber) > -1 && item.repoflag.indexOf(repoflag)>-1);
-				 else if(status=="ERR")
-					 return (item.subscriber.toString().indexOf(subscriber) > -1 && item.status.indexOf(status)>-1);
-				 else
-				 return (item.subscriber.indexOf(subscriber)>-1);
-	    		}
-			 
-			 
-			    	 else if(repoflag=="YES" && status=="ERR")
-	    		{
-	    	
-	    		return (item.repoflag.toString().indexOf(repoflag) > -1 && item.status.toString().indexOf(status) > -1 );
-	    		}
-	    	
-			    	 else if(repoflag=="YES")
-		    	{
-		    	return (item.repoflag.toString().indexOf(repoflag) > -1 );
-		    	}
-		    	
-			    	 else if(status=="ERR")
-	    	{
-	    	return (item.status.toString().indexOf(status) > -1 );
-	    	}
-		    	 else
-		    		{
-		    		return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.fromDate.toString().indexOf(fromDate) > -1 && item.repoflag.indexOf(repoflag)>-1 && item.status.indexOf(status)>-1);
-		    		}
-		    	 // return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 ||  item.fromDate.toString().indexOf(fromDate) > -1);
-			    });
-			  };
-			    
-		   
-			$scope.activateFilter1 = function() 
-			  {
+$scope.count++; 
 				
-				$scope.count1++; //to load grid on click
-			    var subscriber = $scope.filterSubscriber || null;
-			    var todate = ($scope.filtertodate) ? $scope.filtertodate.toString() : null;
-			    var fromDate = ($scope.filterfromDate) ? $scope.filterfromDate.toString() : null;
-			    var repoflag=$scope.filterRepo || null;
-			    var status=$scope.filterError || null;
-			  // var ISMAref=$scope.filterISMAref ||null;
-			    var fOReference=$scope.RadioValue ||null;
-			    var Referenceno=$scope.FilterRadioValue ||null;
-			    
+				var dataObj = {
+						//subscriber :$scope.filterSubscriber,
+						//todate : $scope.filterTodate,
+						fromDate : $scope.filterFromDate,
+						//showErrorsOnly :$scope.filterError,
+					//	repoFlag:$scope.filterRepo,
+					//	referenceNo:$scope.RadioValue,
+						//referenceSelected:$scope.FilterRadioValue
+				}
+				
+				
+				
+ $http({method:'post',url:'http://10.155.44.200:8090/TRAXUIServiceJAX-1.0/rest/Search/ByDate',data:dataObj,headers:{'Content-Type':'application/json'}}).
+	    success(function(data, status, headers, config)
+	    		{				    	
+	    	console.log(status);	
+	    	$scope.PostDataResponse = data.Trade;   //set view model
+
+			 $scope.filterData = angular.copy($scope.PostDataResponse, []);
+		
+		  $scope.gridOptions = {
+				  paginationPageSizes:[5, 10, 15],
+				   paginationPageSize: 10,
+				   paginationOptions: $scope.pagingOptions,
+				   filterOptions: $scope.filteroptions ,
+				   enablePaging: true,
+				   enableFiltering: true,
+			        showFooter: true,
+			        enableSorting: true,
+				    multiSelect: false,
+				        
+				    enableRowSelection: true, 
+				    enableSelectAll: false,
+				    enableRowHeaderSelection: false,
+				    selectionRowHeaderWidth: 35,  
+				    noUnselect: true,
+				    enableGridMenu: true,
+			        appScopeProvider: $scope.myAppScopeProvider,
+			         onRegisterApi: function(gridApi){
+			      grid = gridApi;
+			    },
 			  
-			   // var fOReferenceno=$scope.filterfOReferenceno ||null;
-			  //  if (!subscriber && !todate) subscriber='';
-			   // console.log("shubham"+Referenceno);
-			    //console.log(+repoflag);
-			    $scope.filterData = angular.copy($scope.myData, []);
-			    $scope.filterData = $scope.filterData.filter( function(item) {
-			    	
-			    	
-			    	 if(Referenceno=="FOReference"){
-					    	
-					    return (item.fOReference.toString().indexOf(fOReference) > -1 );
-					    	
-					     }
-			    	 else if(Referenceno=="ISMAref"){
-			    		 return (item.ismaref.toString().indexOf(ismaref) > -1 );
-			    		 
-			    	 }
-			   
-		    		    	
-			   else if(fromDate!=null )
-	    		{
-		    		if(todate==null && subscriber==null)
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 );
-		    		else if(todate!=null && subscriber==null)
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.todate.toString().indexOf(todate) > -1);
-		    		else if(todate==null && subscriber!=null)
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.subscriber.indexOf(subscriber)>-1);
-		    		else if(repoflag=="YES")
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.repoflag.indexOf(repoflag)>-1);
-		    		else if(status=="ERR")
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.status.indexOf(status)>-1);
-		    		else
-		    			return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.fromDate.toString().indexOf(fromDate) > -1);
-	    		
-	    		}
-					    	
-			    	 else  if(todate!=null)
-	    		{
-		    		if(fromDate==null && subscriber==null)
-		    			return (item.todate.toString().indexOf(todate) > -1 );
-		    		else if(fromDate!=null && subscriber==null)
-		    			return (item.fromDate.toString().indexOf(fromDate) > -1 && item.todate.toString().indexOf(todate) > -1);
-		    		else if(fromDate==null && subscriber!=null)
-		    			return (item.todate.toString().indexOf(todate) > -1 && item.subscriber.indexOf(subscriber)>-1);
-		    		else if(repoflag=="YES")
-		    			return (item.todate.toString().indexOf(todate) > -1 && item.repoflag.indexOf(repoflag)>-1);
-		    		else if(status=="ERR")
-		    			return (item.todate.toString().indexOf(todate) > -1 && item.status.indexOf(status)>-1);
-		    		
-		    		else
-		    			return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.todate.toString().indexOf(fromDate) > -1);
-	    		
-	    		}
-					    	
-			    	 else if((todate==null || fromDate==null)&& subscriber!=null)
-	    		{
-			    		 console.log("dhfjsh");
-				  if(repoflag=="YES" && status=="ERR")
-					 return(item.repoflag.toString().indexOf(repoflag) > -1 && item.status.toString().indexOf(status) > -1 && item.subscriber.indexOf(subscriber)>-1)				 
-		    			
-				 else if(repoflag=="YES")
-		    			return (item.subscriber.toString().indexOf(subscriber) > -1 && item.repoflag.indexOf(repoflag)>-1);
-				 else if(status=="ERR")
-					 return (item.subscriber.toString().indexOf(subscriber) > -1 && item.status.indexOf(status)>-1);
-				 else
-				 return (item.subscriber.indexOf(subscriber)>-1);
-	    		}
+			    columnDefs: [
+			                 {field:'sourceSystem', displayName:'Source'},    
+			                 {field:'fOReference',displayName:'FO Reference'},
+			                 {field:'ismaref',displayName:'ISMA Ref.'},
+			                 {field:'security',displayName:'Security'},
+			                 {field:'cParty',displayName:'CParty'},
+			                 {field:'quantity',displayName:'Quantity'},
+			                 {field:'price',displayName:'Price'},
+			                 {field:'currency',displayName:'CCy'},
+			                 {field:'purchaseSell',displayName:'P/S'},
+			                 {field:'type',displayName:'Type'},
+			                 {field:'status',displayName:'Status'},
+			                 {field:'fromDate',displayName:'Trade Date/Time',cellFilter: 'date:"MM-dd-yyyy"'},
+			                 {field:'late',displayName:'Late'}
+			                 
+			                 ],
+			  
+			    rowTemplate: rowTemplate()
+			       
+			}
+		$scope.gridOptions.data=$scope.filterData;
+				console.log("status"+status);
+	    }).
+	    error(function(data, status, headers, config) {
+				$scope.my= data || "Request failed";
+				console.log("Error with status:"+status);
+	    })  ;
+				// $scope.filterData = angular.copy($scope.PostDataResponse, []);
+			  
 			 
-			 
-			    	 else if(repoflag=="YES" && status=="ERR")
-	    		{
-	    	
-	    		return (item.repoflag.toString().indexOf(repoflag) > -1 && item.status.toString().indexOf(status) > -1 );
-	    		}
-	    	
-			    	 else if(repoflag=="YES")
-		    	{
-		    	return (item.repoflag.toString().indexOf(repoflag) > -1 );
-		    	}
-		    	
-			    	 else if(status=="ERR")
-	    	{
-	    	return (item.status.toString().indexOf(status) > -1 );
-	    	}
-		    	 else
-		    		{
-		    		return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 &&  item.fromDate.toString().indexOf(fromDate) > -1 && item.repoflag.indexOf(repoflag)>-1 && item.status.indexOf(status)>-1);
-		    		}
-		    	 // return (item.subscriber.indexOf(subscriber)>-1 && item.todate.toString().indexOf(todate) > -1 ||  item.fromDate.toString().indexOf(fromDate) > -1);
-			    });
+			  
 			  };
 			    
 			  
 			  
 
-			  $scope.filterData = angular.copy($scope.myData, []);
+			  /*$scope.filterData = angular.copy($scope.myData, []);
 			    
 			  $scope.gridOptions = {
 					  paginationPageSizes:[5, 10, 15],
@@ -435,7 +301,7 @@ myApp.controller("CompanyCtrl", ['$scope', '$http', '$interval', '$modal', '$log
 				  
 				    rowTemplate: rowTemplate()
 				       
-				}
+				}*/
 
 			  $scope.reloadRoute = function() {
 				  $scope.count=0;
@@ -486,11 +352,6 @@ myApp.controller('modalController', ['$scope', function($scope) {
 myApp.controller('maintence_ficontroller', ['$scope','$q','$interval', function($scope,$q,$interval) {
 	
 	
-
-	 
-	 
-	 
-	 
 	 
 	$scope.msg = {};
 	$scope.ficontrol=[{ Rule_ID:1000302,TraxAcronym:"TULLTLON",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"Y",EnteredBy:"traxbatch", EntryDate: '05/06/2016',UpdatedBy:"traxbatch",UpdatedDate:"07/09/2017"},
