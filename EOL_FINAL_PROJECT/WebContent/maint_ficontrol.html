@@ -2,7 +2,7 @@
 <html ng-app="app">
 
 <head>
-<!--  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="http://ui-grid.info/release/ui-grid.js"></script>
 <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
     <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
@@ -14,9 +14,6 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
  
-
- 
-	  
      <link href="./js/jquery-ui.css" rel="stylesheet" type="text/css"/>
 	<script src="./js/jquery.min.js"></script>
 	<script src="./js/jquery-ui.min.js"></script>
@@ -27,9 +24,7 @@
  
   <link rel="stylesheet" href="./js/bootstrap.min.css">
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-      
-
-
+  
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
     
    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
@@ -63,28 +58,34 @@
            
         </ul>
         <div class="tab-content">
-            <div class="tab-pane_M" ng-class="{ active_M: activeTab === 'Force to Matchable' }"> 
-      
-            <div class="row">
-             
-					
+            <div class="tab-pane" ng-class="{ active: activeTab === 'Force to Matchable' }"> 
+             <div class="row">
+          <strong><h3>Force to Matchable</h3></strong>
+         
 			<div class="col-xs-6 col-md-4">
 		
-			
-			 
-				<div    ui-grid="gridOptions" ui-grid-edit class="grid"  ui-grid-pagination class="myGrid" 
+				<div    ui-grid="gridOptions" ui-grid-edit class="grid" ui-grid-selection class="grid" ui-grid-pagination class="myGrid" 
 						ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit ui-grid-row-edit ui-grid-cellNav> </div> 
+				
+				<div class="button">
+  <button class="btn btn-primary"  ng-click="onAddRow()">ADD</button> &nbsp;
+  
+    <button  class="btn btn-primary"  ng-click="deleteSelected()">DELETE</button>
+     <button  class="btn btn-primary"  ng-click="save()">SAVE</button>
+   
+  
+</div>
+				
 				</div>
 				
 				</div>
                     </div>
-             <div class="tab-pane_M" ng-class="{ active_M: activeTab === 'Suprresion to Non-Matchable/Non-Reportable' }">
+             <div class="tab-pane" ng-class="{ active: activeTab === 'Suprresion to Non-Matchable/Non-Reportable' }">
               <div class="row">
              
+				 <strong><h3>Suprresion to Non-Matchable/Non-Reportable</h3></strong>	
 			<div class="col-xs-6 col-md-4">
 		
-			
-			 
 				<div    ui-grid="gridOptions1" ui-grid-edit class="grid"  ui-grid-pagination class="myGrid1" 
 						ui-grid-resize-columns ui-grid-move-columns ui-grid-pinning ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-edit ui-grid-row-edit ui-grid-cellNav> </div> 
 				</div>

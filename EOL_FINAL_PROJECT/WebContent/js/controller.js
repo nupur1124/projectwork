@@ -1,5 +1,4 @@
-var myApp=angular.module('app',['ui.bootstrap','ngTouch','ui.grid.pagination','ui.grid.edit','ui.grid', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize']);
-  
+var myApp=angular.module('app',['ui.bootstrap','ngTouch','ui.grid.pagination','ui.grid.edit','ui.grid','ui.grid.rowEdit', 'ui.grid.saveState', 'ui.grid.selection', 'ui.grid.cellNav', 'ui.grid.resizeColumns', 'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.bootstrap', 'ui.grid.autoResize']);
 
 //for controlling tabs
 myApp.controller("TabController",function(){
@@ -349,49 +348,8 @@ myApp.controller('modalController', ['$scope', function($scope) {
 }]);
 
 
-myApp.controller('maintence_ficontroller', ['$scope','$http','$q','$interval', function($scope,$http,$q,$interval) {
-	
-	$scope.currencyList={};
-	$http({method: 'get',url:'http://10.155.44.200:8090/TRAXUIServiceJAX-1.0/rest/Maintenance/getCurrencyList',
-				headers:{'Content-Type':'application/json'}
-		}).
-	    success(function(data, status, headers, config) {
-	    	
-	    	console.log(status);	
-	    	$scope.currencyList = data.Currency[0];   //set view model
-				console.log("status"+status);
-	    }).
-	    error(function(data, status, headers, config) {
-				$scope.currencyList= data || "Request failed";
-				console.log("Error with status:"+status);
-	    })
-	    ;
-	 
+myApp.controller('maintence_ficontroller', ['$scope','$q','$interval','$log','uiGridConstants', function($scope,$q,$interval,$log,uiGridConstants) {
 	$scope.msg = {};
-	$scope.ficontrol=[{ Rule_ID:1000302,TraxAcronym:"TULLTLON",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"Y",EnteredBy:"traxbatch", EntryDate: '05/06/2016',UpdatedBy:"traxbatch",UpdatedDate:"07/09/2017"},
-	          { Rule_ID:1000301,TraxAcronym:"GFIGPLON",ClientHugo:"BLVR",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"EUR",Book:"ALL",B_S:"S",SettlementCurrency:"EUR",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"N",EnteredBy:"idavey2", EntryDate: "06/06/2016",UpdatedBy:"idavey2",UpdatedDate:"07/010/2017"},
-	          { Rule_ID:1000289,TraxAcronym:"MSLON",ClientHugo:"SALL",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"JPN",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"R",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/07/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/11/2017"},
-	          { Rule_ID:1000288,TraxAcronym:"JPSMLLON",ClientHugo:"DB02",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ITL",Book:"ALL",B_S:"S",SettlementCurrency:"USD",SettlementCountry:"JPN",RepoType:"ALL",Reportable:"N",EnteredBy:"ksmith8", EntryDate: "06/08/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/12/2017"},
-	          { Rule_ID:1000087,TraxAcronym:"CAB0TMIL",ClientHugo:"BAML",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"USD",Book:"ALL",B_S:"B",SettlementCurrency:"ITL",SettlementCountry:"ALL",RepoType:"RR",Reportable:"Y",EnteredBy:"idavey2", EntryDate: "06/09/2016",UpdatedBy:"idavey2",UpdatedDate:"07/13/2017"},
-	          { Rule_ID:1000284,TraxAcronym:"VDMBLON",ClientHugo:"BOAI",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"S",SettlementCurrency:"YEN",SettlementCountry:"JPN",RepoType:"R",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/10/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/14/2017"},
-	          { Rule_ID:500348,TraxAcronym:"SALUKLON",ClientHugo:"DEKI",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"EUR",Book:"ALL",B_S:"B",SettlementCurrency:"EUR",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"N",EnteredBy:"ksmith8", EntryDate: "06/11/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/15/2017"},
-	          { Rule_ID:500315,TraxAcronym:"GFIGPLON",ClientHugo:"SALL",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"YEN",Book:"ALL",B_S:"S",SettlementCurrency:"USD",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"Y",EnteredBy:"idavey2", EntryDate: "06/12/2016",UpdatedBy:"idavey2",UpdatedDate:"07/16/2017"},
-	          { Rule_ID:500314,TraxAcronym:"JPSMLLON",ClientHugo:"BLVR",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ITL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"N",EnteredBy:"traxbatch", EntryDate: "06/13/2016",UpdatedBy:"traxbatch",UpdatedDate:"07/17/2017"},
-	          { Rule_ID:500310,TraxAcronym:"CAB0TMIL",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"USD",Book:"ALL",B_S:"S",SettlementCurrency:"JPN",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/14/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/18/2017"},
-	          { Rule_ID:500321,TraxAcronym:"VDMBLON",ClientHugo:"DB02",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"JPN",SettlementCountry:"ALL",RepoType:"RR",Reportable:"N",EnteredBy:"idavey2", EntryDate: "06/15/2016",UpdatedBy:"idavey2",UpdatedDate:"07/19/2017"},]
-	
-	  $scope.filterOptions = {
-		    filterText: '',
-		    useExternalFilter: true
-		  };
-   
-   $scope.pagingOptions = {
-		   pageSizes: [2, 4, 6],
-		  pageSize: 10,
-	        totalServerItems: 0,
-	        currentPage: 1
-	    };
-	
 	
 	$scope.gridOptions = { 
 			paginationPageSizes:[5, 10, 15],
@@ -401,19 +359,25 @@ myApp.controller('maintence_ficontroller', ['$scope','$http','$q','$interval', f
 			   enableCellEditOnFocus: true,
 			   enablePaging: true,
 			   enableFiltering: true,
+			   enableRowSelection: true,
+			   rowEditWaitInterval: 1,
 			   
+	
 			   columnDefs:[{name: 'Rule_ID',displayName:'Rule ID',enableCellEdit: true,type: 'number'},
 			               {name: 'TraxAcronym',displayName:'Trax Acronym',enableCellEdit: true},
 			               {name: 'ClientHugo',displayName:'Client Hugo',enableCellEdit: true },
 			               {name: 'ProductType',displayName:'Product Type',enableCellEdit: true},
 			               {name: 'ProductHugo',displayName:'Product Hugo',enableCellEdit: true},
 			               {name: 'IssueCurrency', displayName: 'Issue Currency',
-			            	   editType: 'dropdown',
-			                   enableCellEdit: true,
 			            	      editableCellTemplate: 'ui-grid/dropdownEditor', 
-			            	      editDropdownOptionsArray: $scope.currencyList,
-				                   editDropdownIdLabel: 'currencyCode',
-				                   editDropdownValueLabel: 'currencyCode'},
+			            	      editDropdownValueLabel: 'IssueCurrency', 
+			            	      editDropdownOptionsArray: [
+			            	      { id:'EUR', IssueCurrency: 'EUR' },
+			            	      { id: 'USD', IssueCurrency: 'USD' },
+			            	      { id: 'YEN', IssueCurrency: 'YEN' },
+			            	      { id: 'JPN', IssueCurrency: 'JPN' },
+			            	      { id: 'ITL', IssueCurrency: 'ITL' },
+			            	      { id: 'ALL', IssueCurrency: 'ALL' }] },
 			                
 			               {name: 'Book',displayName:'Book' ,enableCellEdit: true},
 			               {name: 'B_S',displayName:'B/S',enableCellEdit: true,
@@ -447,42 +411,105 @@ myApp.controller('maintence_ficontroller', ['$scope','$http','$q','$interval', f
 			               {name: 'EntryDate',displayName:'Entry Date' ,enableCellEdit: true,type: 'date',cellFilter: 'date:"MM/dd/yyyy"'},
 			               {name: 'UpdatedBy',displayName:'Updated By',enableCellEdit: true},
 			               {name: 'UpdatedDate',displayName:'Updated Date',enableCellEdit: true ,type: 'date',cellFilter: 'date:"MM/dd/yyyy"'},
-			               ],
-			              
-			            
-			               onRegisterApi: function(gridApi){
-			            	   $scope.gridApi = gridApi;
-			            	   $scope.gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
+			               ]
+			               };
+	
+    $scope.gridOptions.multiSelect = true;
+	$scope.ficontrol = [];
+
+
+	$scope.ficontrol=[{ Rule_ID:1000302,TraxAcronym:"TULLTLON",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"Y",EnteredBy:"traxbatch", EntryDate: '05/06/2016',UpdatedBy:"traxbatch",UpdatedDate:"07/09/2017"},
+	          { Rule_ID:1000301,TraxAcronym:"GFIGPLON",ClientHugo:"BLVR",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"EUR",Book:"ALL",B_S:"S",SettlementCurrency:"EUR",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"N",EnteredBy:"idavey2", EntryDate: "06/06/2016",UpdatedBy:"idavey2",UpdatedDate:"07/010/2017"},
+	          { Rule_ID:1000289,TraxAcronym:"MSLON",ClientHugo:"SALL",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"JPN",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"R",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/07/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/11/2017"},
+	          { Rule_ID:1000288,TraxAcronym:"JPSMLLON",ClientHugo:"DB02",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ITL",Book:"ALL",B_S:"S",SettlementCurrency:"USD",SettlementCountry:"JPN",RepoType:"ALL",Reportable:"N",EnteredBy:"ksmith8", EntryDate: "06/08/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/12/2017"},
+	          { Rule_ID:1000087,TraxAcronym:"CAB0TMIL",ClientHugo:"BAML",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"USD",Book:"ALL",B_S:"B",SettlementCurrency:"ITL",SettlementCountry:"ALL",RepoType:"RR",Reportable:"Y",EnteredBy:"idavey2", EntryDate: "06/09/2016",UpdatedBy:"idavey2",UpdatedDate:"07/13/2017"},
+	          { Rule_ID:1000284,TraxAcronym:"VDMBLON",ClientHugo:"BOAI",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"S",SettlementCurrency:"YEN",SettlementCountry:"JPN",RepoType:"R",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/10/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/14/2017"},
+	          { Rule_ID:500348,TraxAcronym:"SALUKLON",ClientHugo:"DEKI",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"EUR",Book:"ALL",B_S:"B",SettlementCurrency:"EUR",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"N",EnteredBy:"ksmith8", EntryDate: "06/11/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/15/2017"},
+	          { Rule_ID:500315,TraxAcronym:"GFIGPLON",ClientHugo:"SALL",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"YEN",Book:"ALL",B_S:"S",SettlementCurrency:"USD",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"Y",EnteredBy:"idavey2", EntryDate: "06/12/2016",UpdatedBy:"idavey2",UpdatedDate:"07/16/2017"},
+	          { Rule_ID:500314,TraxAcronym:"JPSMLLON",ClientHugo:"BLVR",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ITL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"N",EnteredBy:"traxbatch", EntryDate: "06/13/2016",UpdatedBy:"traxbatch",UpdatedDate:"07/17/2017"},
+	          { Rule_ID:500310,TraxAcronym:"CAB0TMIL",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"USD",Book:"ALL",B_S:"S",SettlementCurrency:"JPN",SettlementCountry:"ALL",RepoType:"ALL",Reportable:"Y",EnteredBy:"ksmith8", EntryDate: "06/14/2016",UpdatedBy:"ksmith8",UpdatedDate:"07/18/2017"},
+	          { Rule_ID:500321,TraxAcronym:"VDMBLON",ClientHugo:"DB02",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"JPN",SettlementCountry:"ALL",RepoType:"RR",Reportable:"N",EnteredBy:"idavey2", EntryDate: "06/15/2016",UpdatedBy:"idavey2",UpdatedDate:"07/19/2017"},]
+
+	 $scope.gridOptions.data = $scope.ficontrol;
+
+	$scope.filterOptions = {
+		    filterText: '',
+		    useExternalFilter: true
+		  };
+ 
+   $scope.pagingOptions = {
+		   pageSizes: [2, 4, 6],
+		   pageSize: 10,
+	       totalServerItems: 0,
+	       currentPage: 1
+	    };
+   $scope.onAddRow = function(){
+	   //console.log("dgjgjdgdg");
+	   var newobj = {"Rule_ID": "","TraxAcronym":"","ProductType": "","IssueCurrency":"","Book": "", "B_S": "","SettlementCurrency": "", "SettlementCountry": "","RepoType": "", "Reportable": "", "EnteredBy": "", "EntryDate": "","UpdatedBy": "", "UpdatedDate": ""}; 
+	    $scope.gridOptions.data.unshift(newobj);
+	    $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ROW); 
+	    
+	    //set focus to the new row 
+	    $scope.gridApi.cellNav.scrollToFocus( $scope.termGridOptions.data[0], $scope.termGridOptions.columnDefs[0]);
+	  }; //adding the row
+	  
+	  $scope.save = function() {
+		 
+		    $scope.gridApi.rowEdit.flushDirtyRows( $scope.gridApi.grid );
+		    console.log("6735783453");
+		  };
+
+         $scope.deleteSelected = function(){
+             angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data1, index) {
+               $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data1), 1);
+             });
+           } 
+			             $scope.saveRow = function (rowEntity) {
+			                       var promise = $q.defer();
+			                       $scope.gridApi.rowEdit.setSavePromise(rowEntity, promise.promise);
+			                       console.log("Added ID"+rowEntity.Rule_ID);
+			                       promise.resolve();
+			                   };
+			     $scope.gridOptions.onRegisterApi = function(gridApi){
+	      //set gridApi on scope
+	      $scope.gridApi = gridApi;
+	      gridApi.selection.on.rowSelectionChanged($scope,function(row){
+	        var msg = 'row selected ' + row.isSelected +"||"+row.entity.Rule_ID;/// selecting the row
+	        $log.log(msg);
+	      })
+
+	      gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+	        var msg = 'rows changed ' + rows.length;
+	        $log.log(msg);
+	      })
+	  	 $scope.gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
+	  		 //console.log("test");
 							            $scope.msg.lastCellEdited = 'Edited Row_Id:' + rowEntity.Rule_ID + ' Modified_Column:' + colDef.name + ' NewValue:' + newValue + ' OldValue:' + oldValue ;
 							            $scope.$apply();
-							            });
-			            	  
-					               },
-							    
-							    
-			               data:'ficontrol',
-	
-			               };
-	 	
-	
-	
+							            console.log("lastCellEdited"+$scope.msg.lastCellEdited)
+							            } );  //editable row feature
+	      
+	     gridApi.rowEdit.on.saveRow($scope, $scope.saveRow); ///saving the row
+
+			             };
+
 	$scope.count=0;
 	
 	$scope.OnLoad=function(){
 		
 		$scope.count++;
-	}
-	
-	
-	
-	
-	$scope.gridOptions1 = { 
+	};
+
+/*		$scope.gridOptions1 = { 
 			paginationPageSizes:[5, 10, 15],
 			   paginationPageSize: 10,
 			   paginationOptions: $scope.pagingOptions,
 			   filterOptions: $scope.filteroptions ,
 			   enableCellEditOnFocus: true,
 			   enablePaging: true,
+			   showSelectionCheckbox: true,
+		        selectWithCheckboxOnly: true,
+		        selectedItems: $scope.Selections,
 			   enableFiltering: true,
 			   columnDefs:[{name: 'Rule_ID',displayName:'Rule ID',enableCellEdit: true,type: 'number'},
 			               {name: 'TraxAcronym',displayName:'Trax Acronym',enableCellEdit: true},
@@ -543,16 +570,10 @@ myApp.controller('maintence_ficontroller', ['$scope','$http','$q','$interval', f
 							            });
 			            	  
 							    
-			               },
-					               data:'ficontrol',
+			               }};
+					               $scope.gridOptions1.data=$scope.ficontrol1; */
 
-			               };
-
-    
-}]);
-
-
-
+    }]);
 
 myApp.controller('maintence_settlcontroller', ['$scope','$q','$interval',function($scope,$interval){
 	
@@ -577,8 +598,7 @@ myApp.controller('maintence_settlcontroller', ['$scope','$q','$interval',functio
 	              {CSFBType:"EC",CpartyClearer:"OT",CSFBClearer:"CL",Added:"06/25/2017",By:"traxbatch"},
 	              {CSFBType:"ED",CpartyClearer:"CL",CSFBClearer:"ER",Added:"06/27/2017",By:"dbo"}
 	];
-	
-	
+
 	 $scope.filterOptions = {
 			    filterText: '',
 			    useExternalFilter: true
@@ -590,12 +610,7 @@ myApp.controller('maintence_settlcontroller', ['$scope','$q','$interval',functio
 		        totalServerItems: 0,
 		        currentPage: 1
 		    };
-	
-	
-	
-	
-	
-	
+
 	$scope.gridOptions=
 	{ paginationPageSizes:[5, 10, 15],
 			   paginationPageSize: 10,
@@ -639,18 +654,8 @@ myApp.controller('maintence_settlcontroller', ['$scope','$q','$interval',functio
 		                    data:'settl',
 			onRegisterApi: function(gridApi){
          	   $scope.gridApi = gridApi;}}
-	
-	
-	
-	 
-	
-	
-	
+
 }]);
-
-
-
-
 
 myApp.controller('maintence_repocontroller', ['$scope',function($scope){
 	
@@ -671,11 +676,9 @@ myApp.controller('maintence_repocontroller', ['$scope',function($scope){
 	             {Type:"RR",Trax:"True",BargainCond:"RC",Added:"06/16/2017",By:"dbo"},
 	             {Type:"SB",Trax:"True",BargainCond:"RB",Added:"07/16/2017",By:"dbo"},
 	             {Type:"TP",Trax:"False",BargainCond:"RC",Added:"08/16/2017",By:"dbo"},
-	            
-	             
+	       
 	];
-	
-	
+
 	 $scope.filterOptions = {
 			    filterText: '',
 			    useExternalFilter: true
@@ -687,11 +690,6 @@ myApp.controller('maintence_repocontroller', ['$scope',function($scope){
 		        totalServerItems: 0,
 		        currentPage: 1
 		    };
-	
-	
-	
-	
-	
 	
 	$scope.gridOptions=
 	{ paginationPageSizes:[5, 10, 15],
@@ -715,14 +713,5 @@ myApp.controller('maintence_repocontroller', ['$scope',function($scope){
 		                    data:'repo',
 			onRegisterApi: function(gridApi){
          	   $scope.gridApi = gridApi;}}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }]);
