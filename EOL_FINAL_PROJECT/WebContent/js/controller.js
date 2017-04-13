@@ -349,9 +349,23 @@ myApp.controller('modalController', ['$scope', function($scope) {
 }]);
 
 
-myApp.controller('maintence_ficontroller', ['$scope','$q','$interval', function($scope,$q,$interval) {
+myApp.controller('maintence_ficontroller', ['$scope','$http','$q','$interval', function($scope,$http,$q,$interval) {
 	
-	
+	$scope.currencyList={};
+	$http({method: 'get',url:'http://10.155.44.200:8090/TRAXUIServiceJAX-1.0/rest/Maintenance/getCurrencyList',
+				headers:{'Content-Type':'application/json'}
+		}).
+	    success(function(data, status, headers, config) {
+	    	
+	    	console.log(status);	
+	    	$scope.currencyList = data.Currency[0];   //set view model
+				console.log("status"+status);
+	    }).
+	    error(function(data, status, headers, config) {
+				$scope.currencyList= data || "Request failed";
+				console.log("Error with status:"+status);
+	    })
+	    ;
 	 
 	$scope.msg = {};
 	$scope.ficontrol=[{ Rule_ID:1000302,TraxAcronym:"TULLTLON",ClientHugo:"SIEG",ProductType:"All Product",ProductHugo:"ALL",IssueCurrency:"ALL",Book:"ALL",B_S:"B",SettlementCurrency:"ALL",SettlementCountry:"ESP",RepoType:"ALL",Reportable:"Y",EnteredBy:"traxbatch", EntryDate: '05/06/2016',UpdatedBy:"traxbatch",UpdatedDate:"07/09/2017"},
@@ -394,15 +408,12 @@ myApp.controller('maintence_ficontroller', ['$scope','$q','$interval', function(
 			               {name: 'ProductType',displayName:'Product Type',enableCellEdit: true},
 			               {name: 'ProductHugo',displayName:'Product Hugo',enableCellEdit: true},
 			               {name: 'IssueCurrency', displayName: 'Issue Currency',
+			            	   editType: 'dropdown',
+			                   enableCellEdit: true,
 			            	      editableCellTemplate: 'ui-grid/dropdownEditor', 
-			            	      editDropdownValueLabel: 'IssueCurrency', 
-			            	      editDropdownOptionsArray: [
-			            	      { id:'EUR', IssueCurrency: 'EUR' },
-			            	      { id: 'USD', IssueCurrency: 'USD' },
-			            	      { id: 'YEN', IssueCurrency: 'YEN' },
-			            	      { id: 'JPN', IssueCurrency: 'JPN' },
-			            	      { id: 'ITL', IssueCurrency: 'ITL' },
-			            	      { id: 'ALL', IssueCurrency: 'ALL' }] },
+			            	      editDropdownOptionsArray: $scope.currencyList,
+				                   editDropdownIdLabel: 'currencyCode',
+				                   editDropdownValueLabel: 'currencyCode'},
 			                
 			               {name: 'Book',displayName:'Book' ,enableCellEdit: true},
 			               {name: 'B_S',displayName:'B/S',enableCellEdit: true,
